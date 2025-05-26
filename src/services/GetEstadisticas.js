@@ -1,0 +1,16 @@
+import axiosConfig from "../axiosConfig";
+
+export const getEstadisticas = async () => {
+  try {
+    const response = await axiosConfig.get("/estadisticas");
+    return response.data;
+  } catch (error) {
+    // Log detallado
+    console.error("Error obteniendo estadísticas:", error);
+    if (error.response) {
+      console.error("Respuesta del servidor:", error.response.data);
+    }
+    return { error: "Error obteniendo estadísticas" };
+  }
+};
+

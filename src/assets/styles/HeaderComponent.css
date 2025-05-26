@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 0.7rem 1.5rem;
+  background: #222;
+  color: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.header-favicon {
+  width: 32px;
+  height: 32px;
+  margin-right: 0.8rem;
+}
+
+.header-title {
+  font-size: 1.7rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .header-title {
+    font-size: 1.2rem;
+  }
+  .header-favicon {
+    width: 24px;
+    height: 24px;
+    margin-right: 0.5rem;
+  }
+}
