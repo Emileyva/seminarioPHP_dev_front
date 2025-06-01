@@ -9,7 +9,7 @@ import Registro from './pages/registro/RegistroPage';
 
 
 function App() {
-
+ //hacer protección de rutas
   return (
       <Routes>
           <Route

@@ -7,7 +7,10 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
+# Ignore Yarn files and node_modules
+node_modules/
+yarn-error.log
+yarn.lock
 dist
 dist-ssr
 *.local
@@ -22,3 +25,17 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# secrets
+.env
+/.env
+env
+
+# pnpm files
+pnpm-lock.yaml
+pnpm-lock.yaml.bak
+.pnpm-debug.log*
+
+npm-shrinkwrap.json
+package-lock.json
+

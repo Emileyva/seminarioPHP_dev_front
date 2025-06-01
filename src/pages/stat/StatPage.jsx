@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getEstadisticas } from "@/controllers/GetEstadisticas.js";
+import { getEstadisticas } from "../../services/GetEstadisticas";
 
 const StatPage = () => {
   const [estadisticas, setEstadisticas] = useState([]);
