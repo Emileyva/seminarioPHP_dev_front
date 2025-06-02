@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "@/assets/styles/NavBarComponent.css";
 import HeaderComponent from "./HeaderComponent.jsx";
-import useUserFromToken from "../utils/useUserFromToken.js";
+import useUserFromToken from "../hook/useUserFromToken.js";
 
 function NavBarComponent() {
   const [open, setOpen] = useState(false);

@@ -6,6 +6,7 @@ import Layout from "@/components/Layout";
 import Home from './pages/home/home';
 import Stats from './pages/stat/StatPage';
 import Registro from './pages/registro/RegistroPage';
+import Login from './pages/login/LoginPage';
 
 
 function App() {
@@ -28,14 +29,14 @@ function App() {
                 </Layout>
             }
           />
-          {/* <Route
+           <Route
             path="/login"
             element={
                 <Layout>
                   <Login />
                 </Layout>
             }
-          /> */}
+          /> 
           <Route
             path="/registro"
             element={

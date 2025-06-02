@@ -5,6 +5,7 @@ export const registrarUsuario = async (formData) => {
     const response = await axiosConfig.post("/registro", formData);
     return response.data; // Devuelve el mensaje de éxito
   } catch (error) {
+    console.error("Error en resgitro:", error);
     if (error.response) {
       return { error: error.response.data.error };
     }
