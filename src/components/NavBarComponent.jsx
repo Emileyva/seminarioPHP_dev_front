@@ -1,16 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "@/assets/styles/NavBarComponent.css";
 import HeaderComponent from "./HeaderComponent.jsx";
-import useUserFromToken from "../hook/useUserFromToken.js";
 
 function NavBarComponent() {
   const [open, setOpen] = useState(false);
-  const user = useUserFromToken();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser)); // Parsear la data del localStorage
+    }
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setUser(null);
-    window.location.href = "/"; // Redirige al home
+    // Redirigir al login
+    window.location.href = "/login";
   };
 
   return (
@@ -35,10 +43,10 @@ function NavBarComponent() {
           </>
         ) : (
           <>
-            <li className="navbar-user">Hola –{user.nombre || user.name || "Jugador"}–</li>
+            <li className="navbar-user">Hola -{user.nombre || user.name || "Jugador"}-</li>
             <li><a href="/mis-mazos">Mis mazos</a></li>
             <li><a href="/editar-usuario">Editar usuario</a></li>
-            <li><button onClick={handleLogout} className="navbar-logout">Logout</button></li>
+            <li><a onClick={handleLogout} className="navbar-logout">Logout</a></li>
           </>
         )}
       </ul>

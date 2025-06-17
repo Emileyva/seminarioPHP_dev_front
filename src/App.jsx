@@ -7,11 +7,20 @@ import Home from './pages/home/home';
 import Stats from './pages/stat/StatPage';
 import Registro from './pages/registro/RegistroPage';
 import Login from './pages/login/LoginPage';
+import MisMazos from './pages/MisMazos/MazosPages';
+// import EditarUsuario from './pages/EditarUsuario';
+// import Jugar from '/pages/jugar';
+
+
+import Notifications from "@/components/Notificaciones";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 
 function App() {
  //hacer protección de rutas
   return (
+    <>
+      <Notifications />
       <Routes>
           <Route
             path="/"
@@ -45,7 +54,38 @@ function App() {
                 </Layout>
             }
           />
+          <Route
+            path="/mis-mazos"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <MisMazos />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/editar-usuario"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <EditarUsuario />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/jugar"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Jugar />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
       </Routes>
+    </>
   )
 }
 

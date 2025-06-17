@@ -21,9 +21,19 @@ export const loginUser = async (loginData) => {
 // Función que obtiene datos de usuario utilizando el id (obtenido del token)
 export const getUserData = async (userId) => {
   try {
-    const response = await api.get(`/usuarios/${userId}`);
+    const token = localStorage.getItem("token"); // Obtener el token del localStorage
+    if (!token) {
+      return { error: "Token no encontrado" };
+    }
+
+    const response = await api.get(`/usuarios/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Enviar el token en el encabezado Authorization
+      },
+    });
     return response.data;
   } catch (error) {
+    console.error("Error en getUserData:", error);
     if (error.response && error.response.data.error) {
       return { error: error.response.data.error };
     }

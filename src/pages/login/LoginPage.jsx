@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { loginService } from "@/services/loginServices";
+import { useNavigate } from "react-router-dom";
+import { notifySuccess, notifyError } from "@/components/Notificaciones";
 
 const LoginPage = () => {
   const [loginData, setloginData] = useState({
@@ -8,7 +10,7 @@ const LoginPage = () => {
     password: "",
   });
   const [errors, setErrors] = useState([]);
-  const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   // Validación simple: que no esté vacío cada campo
   const validateForm = () => {
@@ -22,19 +24,22 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSuccess(false);
     setErrors([]);
-    
-    if (!validateForm()) return;
+
+    if (!validateForm()) {
+      notifyError("Por favor, completa todos los campos.");
+      return;
+    }
 
     const response = await loginService(loginData);
     console.log("Respuesta procesada:", response); // Para depuración
 
     if (response.error) {
       setErrors([response.error]);
+      notifyError(response.error);
     } else {
-      setSuccess(true);
-      // Redirigir o realizar otra acción al tener éxito en el login
+      notifySuccess("Inicio de sesión exitoso.");
+      window.location.href = "/"; // Redirige al usuario a la página principal
     }
   };
 
@@ -46,9 +51,9 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
+    <div >
       <h2>Iniciar Sesión</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} >
         <div>
           <label htmlFor="usuario">Usuario:</label>
           <input
@@ -90,13 +95,6 @@ const LoginPage = () => {
               <li key={idx}>{error}</li>
             ))}
           </ul>
-        </div>
-      )}
-
-      {success && (
-        <div style={{ color: "green" }}>
-          <h3>Inicio de sesión exitoso</h3>
-          <p>Se guardaron los datos del usuario y el token.</p>
         </div>
       )}
     </div>

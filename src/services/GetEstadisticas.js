@@ -3,6 +3,7 @@ import axiosConfig from "../axiosConfig";
 export const getEstadisticas = async () => {
   try {
     const response = await axiosConfig.get("/estadisticas");
+    console.log("Estadísticas obtenidas:", response.data);
     return response.data;
   } catch (error) {
     // Log detallado

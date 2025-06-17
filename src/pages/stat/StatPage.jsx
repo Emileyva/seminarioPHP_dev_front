@@ -12,13 +12,18 @@ const StatPage = () => {
   useEffect(() => {
     const fetchEstadisticas = async () => {
       const data = await getEstadisticas();
-      // Calcula el promedio de partidas ganadas
-      const processedData = data.map((stat) => ({
-        ...stat,
-        totalPartidas: stat.ganadas + stat.empatadas + stat.perdidas,
-        promedioGanadas: stat.ganadas / (stat.ganadas + stat.empatadas + stat.perdidas || 1),
-      }));
-      setEstadisticas(processedData);
+      if (Array.isArray(data.result)) {
+        // Calcula el promedio de partidas ganadas
+        const processedData = data.result.map((stat) => ({
+          ...stat,
+          totalPartidas: parseInt(stat.ganadas) + parseInt(stat.empatadas) + parseInt(stat.perdidas),
+          promedioGanadas: parseInt(stat.ganadas) / (parseInt(stat.ganadas) + parseInt(stat.empatadas) + parseInt(stat.perdidas) || 1),
+        }));
+        setEstadisticas(processedData);
+      } else {
+        console.error("La respuesta de la API no contiene un arreglo válido:", data);
+        setEstadisticas({ error: "Formato de datos inválido" });
+      }
       setLoading(false);
     };
     fetchEstadisticas();

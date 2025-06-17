@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { registrarUsuario } from "@/services/RegistroService";
+import { notifySuccess, notifyError } from "@/components/Notificaciones";
+import { useNavigate } from "react-router-dom";
 
 const RegistroPage = () => {
   const [formData, setFormData] = useState({
@@ -8,7 +10,7 @@ const RegistroPage = () => {
     password: "",
   });
   const [errors, setErrors] = useState([]);
-  const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const validateForm = async () => {
     const newErrors = [];
@@ -20,11 +22,6 @@ const RegistroPage = () => {
     if (!/^[a-zA-Z0-9]+$/.test(formData.usuario)) {
       newErrors.push("El usuario debe ser alfanumérico.");
     }
-    // Simular verificación de usuario único (puedes reemplazar con una llamada al backend)
-    // const usuarioEnUso = await verificarUsuarioEnUso(formData.usuario);
-    // if (usuarioEnUso) {
-    //   newErrors.push("El usuario ya está en uso.");
-    // }}
 
     // Validar nombre
     if (!formData.nombre.trim()) {
@@ -55,27 +52,25 @@ const RegistroPage = () => {
     return newErrors.length === 0;
   };
 
-  const verificarUsuarioEnUso = async (usuario) => {
-    // Simulación de verificación (reemplaza con una llamada al backend)
-    const usuariosExistentes = ["usuario1", "usuario2", "usuario3"];
-    return usuariosExistentes.includes(usuario);
-  };
-
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  setSuccess(false);
-  const isValid = await validateForm();
-  if (isValid) {
-    const response = await registrarUsuario(formData);
-    console.log("Respuesta procesada:", response); // Depuración
-    if (response.error) {
-      setErrors([response.error]); // Muestra el error del backend
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrors([]);
+    const isValid = await validateForm();
+    if (isValid) {
+      const response = await registrarUsuario(formData);
+      console.log("Respuesta procesada:", response); // Depuración
+      if (response.error) {
+        setErrors([response.error]); // Muestra el error del backend
+        notifyError(response.error);
+      } else {
+        notifySuccess("Registro exitoso. Redirigiendo a la página de inicio de sesión...");
+        setFormData({ usuario: "", nombre: "", password: "" }); // Limpia el formulario
+        setTimeout(() => navigate("/login"), 3000); // Redirige después de 3 segundos
+      }
     } else {
-      setSuccess(true); // Registro exitoso
-      setFormData({ usuario: "", nombre: "", password: "" }); // Limpia el formulario
+      notifyError("Por favor, corrige los errores en el formulario.");
     }
-  }
-};
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -129,13 +124,6 @@ const RegistroPage = () => {
               <li key={idx}>{error}</li>
             ))}
           </ul>
-        </div>
-      )}
-
-      {success && (
-        <div style={{ color: "green" }}>
-          <h3>Registro exitoso</h3>
-          <p>¡El usuario se ha registrado correctamente!</p>
         </div>
       )}
     </div>

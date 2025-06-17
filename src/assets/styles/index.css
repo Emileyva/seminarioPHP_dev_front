@@ -9,3 +9,43 @@ body {
   /* Mantén el resto de tus estilos actuales */
 }
 
+button {
+  background-color: #000; /* Negro */
+  color: #FFBF53; /* Amarillo */
+  border-radius: 12px; /* Bordes redondeados */
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  width: fit-content; /* Ajusta el ancho al contenido */
+}
+
+button:hover {
+  background-color: #333; /* Negro más gris */
+}
+
+input {
+  padding: 8px;
+  margin: 0px 0px 0px 4px;
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 8px; /* Bordes redondeados */
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+  border-color: #FFBF53; /* Amarillo en foco */
+  box-shadow: 0 0 5px rgba(255, 191, 83, 0.8); /* Sombra amarilla */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Espacio entre los elementos del formulario */
+}
+
+label {
+  font-weight: bold;
+  color: #555; /* Gris oscuro */
+}
