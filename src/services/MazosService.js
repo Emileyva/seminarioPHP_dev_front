@@ -1,5 +1,6 @@
 import api from "../axiosConfig";
 import { getAuthData } from "@/helper/getAuthData";
+//import kk from "@/assets/" Para ver como se hace
 
 // Servicio para obtener los mazos de un usuario
 export const getMazos = async () => {
