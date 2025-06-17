@@ -64,7 +64,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
+          {/* <Route
             path="/editar-usuario"
             element={
               <ProtectedRoute>
@@ -83,7 +83,7 @@ function App() {
                 </Layout>
               </ProtectedRoute>
             }
-          />
+          /> */}
       </Routes>
     </>
   )
