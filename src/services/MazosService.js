@@ -78,3 +78,25 @@ export const editarMazo = async (mazoId, nuevoNombre) => {
     return { error: error.response?.data?.error || "Error al editar el mazo" };
   }
 };
+
+// Servicio para obtener las cartas de un mazo específico
+export const getCartasDeMazo = async (mazoId) => {
+  try {
+    const authData = getAuthData();
+    if (authData.error) {
+      return authData;
+    }
+
+    const { token } = authData;
+
+    const response = await api.get(`/mazos/${mazoId}/cartas`, { // <-- Agrega const aquí
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data; // Se espera que sea un array de cartas
+  } catch (error) {
+    console.error("Error en getCartasDeMazo:", error);
+    return { error: error.response?.data?.error || "Error al obtener las cartas del mazo" };
+  }
+};

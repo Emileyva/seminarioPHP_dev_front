@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { getMazos, eliminarMazo, editarMazo } from "@/services/MazosService";
+import { getMazos, eliminarMazo, editarMazo, getCartasDeMazo } from "@/services/MazosService";
 import { notifySuccess, notifyError } from "@/components/Notificaciones";
 import { useNavigate } from "react-router-dom";
+import MazoModal from "./MazoModal"; // <-- Importa el modal
 
 const MazosPages = () => {
   const [mazos, setMazos] = useState([]);
   const [editingMazoId, setEditingMazoId] = useState(null);
   const [newMazoName, setNewMazoName] = useState("");
+  const [modalVisible, setModalVisible] = useState(false); // <-- Estado para el modal
+  const [mazoSeleccionado, setMazoSeleccionado] = useState(null); // <-- Estado para el mazo seleccionado
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,7 +39,7 @@ const MazosPages = () => {
       notifyError("El nombre del mazo no puede estar vacío.");
       return;
     }
-    const response = await editarMazo(mazoId, { nombre: newMazoName });
+    const response = await editarMazo(mazoId, newMazoName);
     if (response.error) {
       notifyError(response.error);
     } else {
@@ -51,9 +54,15 @@ const MazosPages = () => {
     }
   };
 
-  const handleVerMazo = (mazo) => {
-    // Mostrar modal con las cartas del mazo
-    notifySuccess(`Mostrando cartas del mazo: ${mazo.nombre}`);
+  // MODIFICADO: Mostrar el modal con las cartas del mazo seleccionado
+  const handleVerMazo = async (mazo) => {
+  const response = await getCartasDeMazo(mazo.id);
+    if (response.error) {
+      notifyError(response.error);
+      return;
+    }
+    setMazoSeleccionado({ ...mazo, cartas: response });
+  setModalVisible(true);
   };
 
   const handleJugar = (mazoId) => {
@@ -89,7 +98,7 @@ const MazosPages = () => {
                 )}
               </td>
               <td>
-                <button onClick={() => handleVerMazo(mazo)}>Ver Mazo</button>
+                <button style={{ backgroundColor: "rgb(68, 65, 62)", border: "none", color: "white" }} onClick={() => handleVerMazo(mazo)}>Ver Mazo</button>
                 <button style={{ backgroundColor: "red", border: "none", color: "white" }}
                   onClick={() => handleEliminar(mazo.id)}
                   disabled={mazo.usadoEnPartida}
@@ -99,7 +108,7 @@ const MazosPages = () => {
                 {editingMazoId === mazo.id ? (
                   <button onClick={() => handleEditar(mazo.id)}>Guardar</button>
                 ) : (
-                  <button onClick={() => setEditingMazoId(mazo.id)}>
+                  <button style={{ backgroundColor: "rgb(39, 96, 170)", border: "none", color: "white" }} onClick={() => setEditingMazoId(mazo.id)}>
                     Editar
                   </button>
                 )}
@@ -116,6 +125,12 @@ const MazosPages = () => {
       >
         Alta de nuevo mazo
       </button>
+      {/* MODAL */}
+      <MazoModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        mazo={mazoSeleccionado}
+      />
     </div>
   );
 };
