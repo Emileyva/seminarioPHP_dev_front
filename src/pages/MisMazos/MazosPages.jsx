@@ -90,7 +90,7 @@ const MazosPages = () => {
               </td>
               <td>
                 <button onClick={() => handleVerMazo(mazo)}>Ver Mazo</button>
-                <button
+                <button style={{ backgroundColor: "red", border: "none", color: "white" }}
                   onClick={() => handleEliminar(mazo.id)}
                   disabled={mazo.usadoEnPartida}
                 >
@@ -103,7 +103,7 @@ const MazosPages = () => {
                     Editar
                   </button>
                 )}
-                <button onClick={() => handleJugar(mazo.id)}>Jugar</button>
+                <button style={{ backgroundColor: "green", border: "none", color: "white" }} onClick={() => handleJugar(mazo.id)}>Jugar</button>
               </td>
             </tr>
           ))}
