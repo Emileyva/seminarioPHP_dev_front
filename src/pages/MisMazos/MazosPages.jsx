@@ -56,13 +56,13 @@ const MazosPages = () => {
 
   // MODIFICADO: Mostrar el modal con las cartas del mazo seleccionado
   const handleVerMazo = async (mazo) => {
-  const response = await getCartasDeMazo(mazo.id);
+    const response = await getCartasDeMazo(mazo.id);
     if (response.error) {
       notifyError(response.error);
       return;
     }
     setMazoSeleccionado({ ...mazo, cartas: response });
-  setModalVisible(true);
+    setModalVisible(true);
   };
 
   const handleJugar = (mazoId) => {
@@ -121,10 +121,20 @@ const MazosPages = () => {
       <button
         onClick={handleCrearNuevoMazo}
         disabled={mazos.length >= 3}
-        style={{ marginTop: "20px" }}
+        style={{
+          marginTop: "20px",
+          backgroundColor: mazos.length >= 3 ? "#ccc" : "#007bff",
+          color: mazos.length >= 3 ? "#666" : "white",
+          cursor: mazos.length >= 3 ? "not-allowed" : "pointer"
+        }}
       >
         Alta de nuevo mazo
       </button>
+      {mazos.length >= 3 && (
+        <div style={{ color: "red", marginTop: "10px" }}>
+          Solo puedes tener hasta 3 mazos.
+        </div>
+      )}
       {/* MODAL */}
       <MazoModal
         visible={modalVisible}

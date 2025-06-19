@@ -8,6 +8,7 @@ import Stats from './pages/stat/StatPage';
 import Registro from './pages/registro/RegistroPage';
 import Login from './pages/login/LoginPage';
 import MisMazos from './pages/MisMazos/MazosPages';
+import AltaMazosPage from './pages/AltaMazos/AltaMazosPage';
 import EditarUsuario from './pages/EditarUsuario/UserEdit';
 // import Jugar from '/pages/jugar';
 
@@ -65,11 +66,11 @@ function App() {
           }
         />
         <Route
-          path="/mis-mazos"
+          path="/alta-mazo"
           element={
             <ProtectedRoute>
               <Layout>
-                <MisMazos />
+                <AltaMazosPage />
               </Layout>
             </ProtectedRoute>
           }
@@ -85,17 +86,17 @@ function App() {
           }
         />
         {/* 
-  <Route
-    path="/jugar"
-    element={
-      <ProtectedRoute>
-        <Layout>
-          <Jugar />
-        </Layout>
-      </ProtectedRoute>
-    }
-  />
-  */}
+        <Route
+          path="/jugar"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <Jugar />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        */}
       </Routes>
     </>
   )

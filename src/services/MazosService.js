@@ -100,3 +100,54 @@ export const getCartasDeMazo = async (mazoId) => {
     return { error: error.response?.data?.error || "Error al obtener las cartas del mazo" };
   }
 };
+
+// Servicio para crear un nuevo mazo
+export const crearMazo = async (nombre, cartas) => {
+  try {
+    const authData = getAuthData();
+    if (authData.error) {
+      return authData;
+    }
+    const { token } = authData;
+
+    const response = await api.post(
+      "/mazos",
+      { nombre, cartas },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error en crearMazo:", error);
+    return { error: error.response?.data?.error || "Error al crear el mazo" };
+  }
+};
+
+// Servicio para listar cartas con filtros
+export const listarCartas = async (atributo = "", nombre = "") => {
+  try {
+    const authData = getAuthData();
+    if (authData.error) {
+      return authData;
+    }
+    const { token } = authData;
+
+    const params = {};
+    if (atributo) params.atributo = atributo;
+    if (nombre) params.nombre = nombre;
+
+    const response = await api.get("/cartas", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error en listarCartas:", error);
+    return { error: error.response?.data?.error || "Error al obtener cartas" };
+  }
+};

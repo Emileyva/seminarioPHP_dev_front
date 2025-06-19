@@ -1,8 +1,8 @@
 import React from "react";
 import Slider from "react-slick";
-import "@/assets/styles/home.css"; // Asegúrate de que la ruta sea correcta
-import img1 from "@/assets/images/gimnsaio_faye.png";
-import img2 from "@/assets/images/gimnsaio_faye.png";
+import "@/assets/styles/home.css";
+import img1 from "@/assets/images/charizard__pokemon__wallpaper_by_jesgreeneight_de1r687-pre.jpg";
+import img2 from "@/assets/images/dfbxi4z-17d05efe-b453-447f-8192-860bc5ad2566.png";
 
 const sliderSettings = {
   dots: true,
@@ -22,42 +22,59 @@ function Home() {
       </p>
       <div className="slider-section">
         <Slider {...sliderSettings}>
-          {/* Slide 1 */}
+           {/* Slide 1 */}
           <div className="slide">
-            <img src={img1} alt="Tokenizate" className="slide-image"
-            style={{
-                backgroundImage: `url(${img1})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                width: "100%",
-                height: "500px"
-              }} />
-            <div className="slide-overlay">
-              <h1 className="slide-title">Tokenizate 🌟</h1>
-              <p className="slide-text" >
-                🚀 Tokenizá tus proyectos de trabajo y formá parte de nuestro marketplace exclusivo de negocios de economía real.
-                Creá tus propios tokens a medida de tus necesidades y brindá oportunidades de participación a nuestros usuarios para que te apoyen en tu desarrollo.
-              </p>
+            <div style={{ position: "relative", width: "100%", height: "500px" }}>
+              <img
+                src={img1}
+                alt="Pokenizate"
+                className="slide-image"
+                style={{
+                  backgroundImage: `url(${img1})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  width: "100%",
+                  height: "500px",
+                  objectFit: "cover"
+                }}
+              />
+              <div className="slide-overlay slide-overlay-right">
+                <h1 className="slide-title">¡Desafiá y combatí con el Juego de Cartas Pokémon!</h1>
+                <p className="slide-text">
+                  Explorá un mundo donde estrategia, suerte y tus Pokémon favoritos se unen en batallas épicas.
+                  Armá tu mazo, enfrentá a otros Entrenadores y convertite en un verdadero Maestro Pokémon.
+                  Fácil de aprender, difícil de dominar… ¿Estás listo para el desafío?
+                </p>
+              </div>
             </div>
           </div>
           {/* Slide 2 */}
           <div className="slide">
-            <img src={img2} alt="Registrate" className="slide-image"
-              style={{
-                backgroundImage: `url(${img1})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                width: "100%",
-                height: "500px"
-              }} />
-            <div className="slide-overlay">
-              <h1 className="slide-title" style={{ color: "#FFBF53" }}>¡Registrate!</h1>
-              <p className="slide-text slide-text-bold">
-                👥 Como usuario, registrate y accedé a rentas pasivas variables, renta fija, beneficios como descuentos, regalos 🎁, y acceso a actividades de los diferentes proyectos y empresas que forman parte de nuestro marketplace tokenizado.
-              </p>
-              <p className="slide-text" style={{ marginTop: "1rem" }}>
-                💸 ¡Pronto vas a poder acceder a préstamos usando tus tokens! Es decir, vas a poder invertir y también financiar tus vacaciones 🏖️, tus compras 🛍️ o tus deseos, al mismo tiempo que generás ingresos comprando tokens de los negocios de economía real con más potencial de Argentina y Latinoamérica. 🌎
-              </p>
+            <div style={{ position: "relative", width: "100%", height: "500px" }}>
+              <img
+                src={img2}
+                alt="Registrate"
+                className="slide-image"
+                style={{
+                  backgroundImage: `url(${img2})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  width: "100%",
+                  height: "500px",
+                  objectFit: "cover"
+                }}
+              />
+              <div className="slide-overlay slide-overlay-left">
+                <h1 className="slide-title" style={{ color: "#FFBF53" }}>
+                  Desde 1996, una carta a la vez, el mundo cayó bajo el hechizo Pokémon.
+                </h1>
+                <p className="slide-text slide-text-bold">
+                  Lo que empezó en Japón como una extensión del fenómeno de los videojuegos se transformó en uno de los juegos de
+                  cartas más icónicos del planeta. Con cada expansión, nuevas criaturas, estrategias y estilos de juego aparecieron,
+                  y millones de Entrenadores en todo el mundo se sumaron a la batalla. Hoy, el Juego de Cartas Pokémon no es solo
+                  nostalgia: es competencia, colección y comunidad, todo en uno.
+                </p>
+              </div>
             </div>
           </div>
         </Slider>
