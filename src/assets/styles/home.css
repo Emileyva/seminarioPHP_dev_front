@@ -61,14 +61,14 @@
 .slide-overlay-left {
   left: 8%;
   right: auto;
-  text-align: left;
+  text-align: center;
   align-items: flex-start;
 }
 
 .slide-overlay-right {
   right: 6%;
   left: auto;
-  text-align: right;
+  text-align: center;
   align-items: flex-end;
 }
 

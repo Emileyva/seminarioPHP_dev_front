@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { listarCartas, crearMazo } from "@/services/MazosService";
 import { notifySuccess, notifyError } from "@/components/Notificaciones";
 import "@/assets/styles/home.css";
+import dorsoCarta from "@/assets/images/Dorso carta.jpg";
 
 const MAX_CARTAS = 5;
 const MAX_NOMBRE = 20;
@@ -127,23 +128,31 @@ const AltaMazosPage = () => {
                                         background: cartasSeleccionadas.includes(carta.id) ? "#e6ffe6" : "#fff",
                                     }}
                                 >
-                                    <div>
-                                        <input
-                                            type="checkbox"
-                                            checked={cartasSeleccionadas.includes(carta.id)}
-                                            onChange={() => handleSeleccionarCarta(carta.id)}
-                                            disabled={
-                                                !cartasSeleccionadas.includes(carta.id) &&
-                                                cartasSeleccionadas.length >= MAX_CARTAS
-                                            }
-                                        />
-                                        <span style={{ fontWeight: "bold", marginLeft: "8px" }}>{carta.nombre}</span>
-                                    </div>
-                                    <div>Atributo: {carta.atributo}</div>
-                                    <div>
-                                        Ataque: {carta.ataque} {carta.ataque_nombre && `(${carta.ataque_nombre})`}
-                                    </div>
-                                    {/* Aquí podrías agregar una imagen si tienes la URL */}
+                                    <>
+                                        <div>
+                                            <input
+                                                type="checkbox"
+                                                checked={cartasSeleccionadas.includes(carta.id)}
+                                                onChange={() => handleSeleccionarCarta(carta.id)}
+                                                disabled={
+                                                    !cartasSeleccionadas.includes(carta.id) &&
+                                                    cartasSeleccionadas.length >= MAX_CARTAS
+                                                }
+                                            />
+                                            <span style={{ fontWeight: "bold", marginLeft: "8px" }}>{carta.nombre}</span>
+                                        </div>
+                                        <div>Atributo: {carta.atributo}</div>
+                                        <div>
+                                            Ataque: {carta.ataque} {carta.ataque_nombre && `(${carta.ataque_nombre})`}
+                                        </div>
+                                        <div>
+                                            <img
+                                                src={carta.imagen ? carta.imagen : dorsoCarta}
+                                                alt={carta.nombre}
+                                                style={{ width: "100%", borderRadius: "8px", marginTop: "0.5rem" }}
+                                            />
+                                        </div>
+                                    </>
                                 </div>
                             ))}
                         </div>
