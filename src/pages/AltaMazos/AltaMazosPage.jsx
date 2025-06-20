@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // <-- Agrega esto
 import { listarCartas, crearMazo } from "@/services/MazosService";
 import { notifySuccess, notifyError } from "@/components/Notificaciones";
 import "@/assets/styles/home.css";
@@ -14,6 +15,8 @@ const AltaMazosPage = () => {
     const [filtroAtributo, setFiltroAtributo] = useState("");
     const [filtroNombre, setFiltroNombre] = useState("");
     const [loading, setLoading] = useState(false);
+    const [sortOption, setSortOption] = useState("nombre-asc");
+    const navigate = useNavigate(); // <-- Agrega esto
 
     const fetchCartas = async () => {
         setLoading(true);
@@ -70,8 +73,25 @@ const AltaMazosPage = () => {
             notifySuccess("¡Mazo creado exitosamente!");
             setNombre("");
             setCartasSeleccionadas([]);
+            navigate("/mis-mazos"); // <-- Redirige a Mis Mazos
         }
     };
+
+    // Ordenar cartas según la opción seleccionada
+    const cartasOrdenadas = [...cartas].sort((a, b) => {
+        switch (sortOption) {
+            case "nombre-asc":
+                return a.nombre.localeCompare(b.nombre);
+            case "nombre-desc":
+                return b.nombre.localeCompare(a.nombre);
+            case "ataque-asc":
+                return (a.ataque ?? 0) - (b.ataque ?? 0);
+            case "ataque-desc":
+                return (b.ataque ?? 0) - (a.ataque ?? 0);
+            default:
+                return 0;
+        }
+    });
 
     return (
         <div className="home-container">
@@ -110,13 +130,28 @@ const AltaMazosPage = () => {
                         Limpiar filtros
                     </button>
                 </div>
+                <div style={{ marginTop: "1rem" }}>
+                    <label>
+                        <strong>Ordenar por: </strong>
+                        <select
+                            value={sortOption}
+                            onChange={(e) => setSortOption(e.target.value)}
+                            style={{ marginLeft: "10px" }}
+                        >
+                            <option value="nombre-asc">Nombre (A-Z)</option>
+                            <option value="nombre-desc">Nombre (Z-A)</option>
+                            <option value="ataque-asc">Ataque (menor a mayor)</option>
+                            <option value="ataque-desc">Ataque (mayor a menor)</option>
+                        </select>
+                    </label>
+                </div>
                 <div style={{ marginTop: "1.5rem" }}>
                     <strong>Selecciona hasta 5 cartas:</strong>
                     {loading ? (
                         <div>Cargando cartas...</div>
                     ) : (
                         <div className="cartas-listado" style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem" }}>
-                            {cartas.map((carta) => (
+                            {cartasOrdenadas.map((carta) => (
                                 <div
                                     key={carta.id}
                                     className={`carta-card${cartasSeleccionadas.includes(carta.id) ? " seleccionada" : ""}`}
