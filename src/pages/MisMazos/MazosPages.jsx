@@ -106,9 +106,23 @@ const MazosPages = () => {
                   Eliminar
                 </button>
                 {editingMazoId === mazo.id ? (
-                  <button onClick={() => handleEditar(mazo.id)}>Guardar</button>
+                  <span style={{ display: "inline-flex", gap: "5px" }}>
+                    <button onClick={() => handleEditar(mazo.id)}>Guardar</button>
+                    <button
+                      style={{ backgroundColor: "rgb(236, 160, 17)", border: "none", color: "white" }}
+                      onClick={() => {
+                        setEditingMazoId(null);
+                        setNewMazoName("");
+                      }}
+                    >
+                      Cancelar
+                    </button>
+                  </span>
                 ) : (
-                  <button style={{ backgroundColor: "rgb(39, 96, 170)", border: "none", color: "white" }} onClick={() => setEditingMazoId(mazo.id)}>
+                  <button
+                    style={{ backgroundColor: "rgb(39, 96, 170)", border: "none", color: "white" }}
+                    onClick={() => setEditingMazoId(mazo.id)}
+                  >
                     Editar
                   </button>
                 )}
