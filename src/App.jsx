@@ -10,7 +10,7 @@ import Login from './pages/login/LoginPage';
 import MisMazos from './pages/MisMazos/MazosPages';
 import AltaMazosPage from './pages/AltaMazos/AltaMazosPage';
 import EditarUsuario from './pages/EditarUsuario/UserEdit';
-// import Jugar from '/pages/jugar';
+import Jugar from './pages/jugar/jugarPage';
 
 
 import Notifications from "@/components/Notificaciones";
@@ -85,9 +85,9 @@ function App() {
             </ProtectedRoute>
           }
         />
-        {/* 
+        
         <Route
-          path="/jugar"
+          path="/jugar/:mazoId"
           element={
             <ProtectedRoute>
               <Layout>
@@ -96,7 +96,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        */}
+       
       </Routes>
     </>
   )

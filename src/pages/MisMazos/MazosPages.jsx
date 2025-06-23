@@ -4,6 +4,7 @@ import { notifySuccess, notifyError } from "@/components/Notificaciones";
 import { useNavigate } from "react-router-dom";
 import MazoModal from "./MazoModal"; // Importa el modal
 import "@/assets/styles/MazosPages.css"; // Importa el nuevo CSS
+import { crearPartida } from "@/services/jugadaServices"; // Importa la función
 
 const MazosPages = () => {
   const [mazos, setMazos] = useState([]);
@@ -66,7 +67,7 @@ const MazosPages = () => {
   };
 
   const handleJugar = (mazoId) => {
-    navigate(`/jugar/${mazoId}`);
+    navigate(`/jugar/${mazoId}`); // Redirige a la página de jugar con el mazoId en la URL
   };
 
   const handleCrearNuevoMazo = () => {

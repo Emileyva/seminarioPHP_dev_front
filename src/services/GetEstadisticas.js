@@ -1,8 +1,8 @@
-import axiosConfig from "../axiosConfig";
+import api from "../axiosConfig";
 
 export const getEstadisticas = async () => {
   try {
-    const response = await axiosConfig.get("/estadisticas");
+    const response = await api.get("/estadisticas");
     console.log("Estadísticas obtenidas:", response.data);
     return response.data;
   } catch (error) {

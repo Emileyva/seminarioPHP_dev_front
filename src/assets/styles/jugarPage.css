@@ -1,0 +1,58 @@
+.jugar-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.cartas-servidor,
+.cartas-usuario {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.carta {
+  width: 100px;
+  height: 150px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+  padding: 5px;
+  background-color: #f9f9f9;
+}
+
+.carta img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.contenedor-central {
+  width: 300px;
+  height: 200px;
+  border: 2px dashed #ccc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.boton-jugar {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.boton-cancelar {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
