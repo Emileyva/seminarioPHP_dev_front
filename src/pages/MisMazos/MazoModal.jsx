@@ -42,11 +42,12 @@ const MazoModal = ({ visible, onClose, mazo }) => {
                             <div
                                 key={idx}
                                 style={{
-                                    border: "1px solid #ccc",
                                     borderRadius: "8px",
                                     padding: "10px",
                                     width: "180px",
                                     background: "#fff",
+                                    fontSize: "0.85rem",
+                                    boxShadow: "none"
                                 }}
                             >
                                 <div>
@@ -56,11 +57,11 @@ const MazoModal = ({ visible, onClose, mazo }) => {
                                 <div>
                                     Ataque: {carta.ataque} {carta.ataque_nombre && `(${carta.ataque_nombre})`}
                                 </div>
-                                <div>
+                                <div style={{ marginTop: "0.5rem" }}>
                                     <img
                                         src={carta.imagen ? carta.imagen : dorsoCarta}
                                         alt={carta.nombre}
-                                        style={{ width: "100%", borderRadius: "8px", marginTop: "0.5rem" }}
+                                        style={{ width: "100%", borderRadius: "8px" }}
                                     />
                                 </div>
                             </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom"; // <-- Agrega esto
 import { listarCartas, crearMazo } from "@/services/MazosService";
 import { notifySuccess, notifyError } from "@/components/Notificaciones";
@@ -17,6 +17,18 @@ const AltaMazosPage = () => {
     const [loading, setLoading] = useState(false);
     const [sortOption, setSortOption] = useState("nombre-asc");
     const navigate = useNavigate(); // <-- Agrega esto
+    const formRef = useRef(null);
+    const [atBottom, setAtBottom] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (!formRef.current) return;
+            const rect = formRef.current.getBoundingClientRect();
+            setAtBottom(rect.bottom <= window.innerHeight + 10);
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     const fetchCartas = async () => {
         setLoading(true);
@@ -96,7 +108,7 @@ const AltaMazosPage = () => {
     return (
         <div className="home-container">
             <h2>Alta de Nuevo Mazo</h2>
-            <form onSubmit={handleSubmit} style={{ marginBottom: "2rem" }}>
+            <form ref={formRef} onSubmit={handleSubmit} style={{ marginBottom: "2rem" }}>
                 <div>
                     <label>
                         Nombre del mazo (máx. 20 caracteres):{" "}
@@ -150,17 +162,28 @@ const AltaMazosPage = () => {
                     {loading ? (
                         <div>Cargando cartas...</div>
                     ) : (
-                        <div className="cartas-listado" style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem" }}>
+                        <div className="cartas-listado"
+    style={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "1rem",
+        marginTop: "1rem",
+        alignItems: "flex-start", // Alinea arriba todas las cartas
+        minHeight: "320px"
+    }}
+>
                             {cartasOrdenadas.map((carta) => (
                                 <div
                                     key={carta.id}
                                     className={`carta-card${cartasSeleccionadas.includes(carta.id) ? " seleccionada" : ""}`}
                                     style={{
-                                        border: "1px solid #ccc",
+                                        // border: "1px solid #ccc", // Quitar borde
                                         borderRadius: "8px",
                                         padding: "10px",
                                         width: "180px",
                                         background: cartasSeleccionadas.includes(carta.id) ? "#e6ffe6" : "#fff",
+                                        fontSize: "0.85rem", // Letras más pequeñas
+                                        boxShadow: "none"
                                     }}
                                 >
                                     <>
@@ -180,11 +203,11 @@ const AltaMazosPage = () => {
                                         <div>
                                             Ataque: {carta.ataque} {carta.ataque_nombre && `(${carta.ataque_nombre})`}
                                         </div>
-                                        <div>
+                                        <div style={{ marginTop: "0.5rem" }}>
                                             <img
                                                 src={carta.imagen ? carta.imagen : dorsoCarta}
                                                 alt={carta.nombre}
-                                                style={{ width: "100%", borderRadius: "8px", marginTop: "0.5rem" }}
+                                                style={{ width: "100%", borderRadius: "8px" }}
                                             />
                                         </div>
                                     </>
@@ -193,22 +216,48 @@ const AltaMazosPage = () => {
                         </div>
                     )}
                 </div>
+                {/* Elimina el botón submit aquí */}
+            </form>
+            {/* Botón flotante solo si NO está al final */}
+            {!atBottom && (
                 <button
-                    type="submit"
+                    onClick={handleSubmit}
                     style={{
-                        marginTop: "2rem",
+                        position: "fixed",
+                        bottom: "30px",
+                        right: "40px",
                         backgroundColor: "#007bff",
                         color: "white",
-                        padding: "10px 30px",
+                        padding: "12px 40px",
                         border: "none",
-                        borderRadius: "5px",
+                        borderRadius: "8px",
                         fontSize: "1.1rem",
-                        cursor: "pointer",
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                        zIndex: 1000,
                     }}
                 >
                     Crear mazo
                 </button>
-            </form>
+            )}
+            {/* Botón fijo dentro del formulario solo si está al final */}
+            {atBottom && (
+                <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "2rem" }}>
+                    <button
+                        onClick={handleSubmit}
+                        style={{
+                            backgroundColor: "#007bff",
+                            color: "white",
+                            padding: "12px 40px",
+                            border: "none",
+                            borderRadius: "8px",
+                            fontSize: "1.1rem",
+                            boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                        }}
+                    >
+                        Crear mazo
+                    </button>
+                </div>
+            )}
         </div>
     );
 };
