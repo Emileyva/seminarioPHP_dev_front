@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import { getMazos, eliminarMazo, editarMazo, getCartasDeMazo } from "@/services/MazosService";
 import { notifySuccess, notifyError } from "@/components/Notificaciones";
 import { useNavigate } from "react-router-dom";
-import MazoModal from "./MazoModal"; // <-- Importa el modal
+import MazoModal from "./MazoModal"; // Importa el modal
+import "@/assets/styles/MazosPages.css"; // Importa el nuevo CSS
 
 const MazosPages = () => {
   const [mazos, setMazos] = useState([]);
   const [editingMazoId, setEditingMazoId] = useState(null);
   const [newMazoName, setNewMazoName] = useState("");
-  const [modalVisible, setModalVisible] = useState(false); // <-- Estado para el modal
-  const [mazoSeleccionado, setMazoSeleccionado] = useState(null); // <-- Estado para el mazo seleccionado
+  const [modalVisible, setModalVisible] = useState(false); // Estado para el modal
+  const [mazoSeleccionado, setMazoSeleccionado] = useState(null); // Estado para el mazo seleccionado
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,7 +55,6 @@ const MazosPages = () => {
     }
   };
 
-  // MODIFICADO: Mostrar el modal con las cartas del mazo seleccionado
   const handleVerMazo = async (mazo) => {
     const response = await getCartasDeMazo(mazo.id);
     if (response.error) {
@@ -74,9 +74,9 @@ const MazosPages = () => {
   };
 
   return (
-    <div>
+    <div className="mazos-container">
       <h2>Mis Mazos</h2>
-      <table>
+      <table className="mazos-table">
         <thead>
           <tr>
             <th>Nombre del Mazo</th>
@@ -97,9 +97,10 @@ const MazosPages = () => {
                   mazo.nombre
                 )}
               </td>
-              <td>
-                <button style={{ backgroundColor: "rgb(68, 65, 62)", border: "none", color: "white" }} onClick={() => handleVerMazo(mazo)}>Ver Mazo</button>
-                <button style={{ backgroundColor: "red", border: "none", color: "white" }}
+              <td >
+                <button className="ver-mazo" onClick={() => handleVerMazo(mazo)}>Ver Mazo</button>
+                <button
+                  className="eliminar"
                   onClick={() => handleEliminar(mazo.id)}
                   disabled={mazo.usadoEnPartida}
                 >
@@ -107,9 +108,9 @@ const MazosPages = () => {
                 </button>
                 {editingMazoId === mazo.id ? (
                   <span style={{ display: "inline-flex", gap: "5px" }}>
-                    <button onClick={() => handleEditar(mazo.id)}>Guardar</button>
+                    <button onClick={() => handleEditar(mazo.id)} style={{ backgroundColor: "#007bff", color: "#fff" }} >Guardar</button>
                     <button
-                      style={{ backgroundColor: "rgb(236, 160, 17)", border: "none", color: "white" }}
+                      className="cancelar"
                       onClick={() => {
                         setEditingMazoId(null);
                         setNewMazoName("");
@@ -119,14 +120,9 @@ const MazosPages = () => {
                     </button>
                   </span>
                 ) : (
-                  <button
-                    style={{ backgroundColor: "rgb(39, 96, 170)", border: "none", color: "white" }}
-                    onClick={() => setEditingMazoId(mazo.id)}
-                  >
-                    Editar
-                  </button>
+                  <button className="editar" onClick={() => setEditingMazoId(mazo.id)}>Editar</button>
                 )}
-                <button style={{ backgroundColor: "green", border: "none", color: "white" }} onClick={() => handleJugar(mazo.id)}>Jugar</button>
+                <button className="jugar" onClick={() => handleJugar(mazo.id)}>Jugar</button>
               </td>
             </tr>
           ))}
@@ -135,21 +131,16 @@ const MazosPages = () => {
       <button
         onClick={handleCrearNuevoMazo}
         disabled={mazos.length >= 3}
-        style={{
-          marginTop: "20px",
-          backgroundColor: mazos.length >= 3 ? "#ccc" : "#007bff",
-          color: mazos.length >= 3 ? "#666" : "white",
-          cursor: mazos.length >= 3 ? "not-allowed" : "pointer"
-        }}
+        className="crear-mazo"
+        style={{ backgroundColor: "#007bff", color: "#fff" }}
       >
         Alta de nuevo mazo
       </button>
       {mazos.length >= 3 && (
-        <div style={{ color: "red", marginTop: "10px" }}>
+        <div className="mazos-limite">
           Solo puedes tener hasta 3 mazos.
         </div>
       )}
-      {/* MODAL */}
       <MazoModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}

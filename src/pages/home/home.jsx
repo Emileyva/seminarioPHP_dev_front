@@ -7,10 +7,12 @@ import img2 from "@/assets/images/dfbxi4z-17d05efe-b453-447f-8192-860bc5ad2566.p
 const sliderSettings = {
   dots: true,
   infinite: true,
-  speed: 500,
+  speed: 300,
   slidesToShow: 1,
   slidesToScroll: 1,
   arrows: true,
+  autoplay: true, 
+  autoplaySpeed: 2500,
 };
 
 function Home() {

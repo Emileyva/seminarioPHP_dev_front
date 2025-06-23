@@ -1,73 +1,45 @@
 import React from "react";
 import dorsoCarta from "@/assets/images/Dorso carta.jpg"; // Asegúrate de que la ruta sea correcta
+import "@/assets/styles/MazoModal.css";
 
 const MazoModal = ({ visible, onClose, mazo }) => {
     if (!visible || !mazo) return null;
 
     return (
-        <div style={{
-            position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh",
-            background: "rgba(0,0,0,0.5)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1000
-        }}>
-            <div style={{
-                position: "relative",
-                background: "#fff",
-                padding: 24,
-                borderRadius: 8,
-                minWidth: 300,
-                border: "3px solid rgb(0, 0, 0)",
-                boxShadow: "0 4px 24px rgba(0,0,0,0.15)"
-            }}>
-                <button
-                    onClick={onClose}
-                    style={{
-                        position: "absolute",
-                        top: 8,
-                        right: 8,
-                        background: "transparent",
-                        border: "none",
-                        fontSize: 22,
-                        fontWeight: "bold",
-                        cursor: "pointer",
-                        color: "#111"
-                    }}
-                    aria-label="Cerrar"
-                >
-                    ×
-                </button>
-                <h3>Cartas del mazo: {mazo.nombre}</h3>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem" }}>
+        <div className="modal-overlay">
+            <div className="modal-container">
+                <div className="modal-header">
+                    <h3 className="modal-title">Cartas del mazo: {mazo.nombre}</h3>
+                    <button
+                        onClick={onClose}
+                        className="modal-close-button"
+                        aria-label="Cerrar"
+                    >
+                        ×
+                    </button>
+
+                </div>
+                <div className="modal-cards-container">
                     {mazo.cartas && mazo.cartas.length > 0 ? (
                         mazo.cartas.slice(0, 5).map((carta, idx) => (
-                            <div
-                                key={idx}
-                                style={{
-                                    borderRadius: "8px",
-                                    padding: "10px",
-                                    width: "180px",
-                                    background: "#fff",
-                                    fontSize: "0.85rem",
-                                    boxShadow: "none"
-                                }}
-                            >
+                            <div key={idx} className="modal-card">
                                 <div>
-                                    <span style={{ fontWeight: "bold" }}>{carta.nombre}</span>
+                                    <span>{carta.nombre}</span>
                                 </div>
                                 <div>Atributo: {carta.atributo}</div>
                                 <div>
                                     Ataque: {carta.ataque} {carta.ataque_nombre && `(${carta.ataque_nombre})`}
                                 </div>
-                                <div style={{ marginTop: "0.5rem" }}>
+                                <div>
                                     <img
                                         src={carta.imagen ? carta.imagen : dorsoCarta}
                                         alt={carta.nombre}
-                                        style={{ width: "100%", borderRadius: "8px" }}
                                     />
                                 </div>
                             </div>
                         ))
                     ) : (
-                        <div>No hay cartas en este mazo.</div>
+                        <div className="modal-empty">No hay cartas en este mazo.</div>
                     )}
                 </div>
             </div>

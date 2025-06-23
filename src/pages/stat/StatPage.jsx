@@ -91,7 +91,7 @@ const StatPage = () => {
           }}
         >
           <thead>
-            <tr style={{ background: "#f6f6f6" }}>
+            <tr style={{ background: "#f6f6f6", color: "#333" }}>
               <th style={{ padding: 8, fontWeight: 600 }}>Nombre</th>
               <th style={{ padding: 8, fontWeight: 600 }}>Totales</th>
               <th style={{ padding: 8, fontWeight: 600 }}>Ganadas</th>

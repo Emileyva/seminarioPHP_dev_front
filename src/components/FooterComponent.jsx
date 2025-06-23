@@ -6,7 +6,7 @@ function FooterComponent() {
     <footer className="footer">
       <div className="footer-nav">
         <a href="/">Inicio</a>
-        <a href="/proyectos">Proyectos</a>
+        <a href="/estadisticas">Estadisticas</a>
         <a href="/registro">Registro</a>
         <a href="/login">Login</a>
       </div>

@@ -1,0 +1,94 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+thead {
+  background-color: #007bff;
+  color: white;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+td {
+  font-size: 1rem;
+}
+
+button {
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin: 5px; /* Añade espacio entre los botones */
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button.ver-mazo {
+  background-color: rgb(68, 65, 62);
+  color: white;
+}
+
+button.eliminar {
+  background-color: red;
+  color: white;
+}
+
+button.editar {
+  background-color: rgb(39, 96, 170);
+  color: white;
+}
+
+button.jugar {
+  background-color: green;
+  color: white;
+}
+
+button.cancelar {
+  background-color: rgb(236, 160, 17);
+  color: white;
+}
+
+@media (max-width: 768px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  th, td {
+    font-size: 0.8rem;
+    padding: 8px;
+  }
+
+  button {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  th, td {
+    font-size: 0.7rem;
+    padding: 6px;
+  }
+
+  button {
+    font-size: 0.7rem;
+    padding: 5px 8px;
+  }
+}

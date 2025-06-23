@@ -1,0 +1,132 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-container {
+  position: relative;
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  min-width: 300px;
+  max-width: 90%;
+  max-height: 90%; /* Limita la altura del modal */
+  overflow-y: auto; /* Habilita el scroll vertical */
+  border: 3px solid rgb(0, 0, 0);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+}
+
+.modal-close-button {
+  position: sticky; /* Hace que el botón permanezca visible al hacer scroll */
+  top: 0;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #111;
+  z-index: 10; /* Asegura que el botón esté por encima del contenido */
+}
+
+.modal-title {
+  position: sticky; /* Hace que el título permanezca visible al hacer scroll */
+  top: 30px; /* Ajusta la posición debajo del botón de cierre */
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  background: #fff; /* Fondo blanco para que no se superponga con el contenido */
+  padding: 8px 0;
+  z-index: 10; /* Asegura que el título esté por encima del contenido */
+}
+
+.modal-header {
+  position: sticky; /* Hace que el encabezado permanezca visible al hacer scroll */
+  top: 0;
+  background: #fff; /* Fondo blanco */
+  padding: 8px 16px; /* Espaciado interno */
+  border-bottom: 1px solid #ddd; /* Línea divisoria */
+  z-index: 10; /* Asegura que el encabezado esté por encima del contenido */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Espacia el botón y el título */
+}
+
+.modal-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.modal-card {
+  border-radius: 8px;
+  padding: 10px;
+  width: 180px;
+  background: #fff;
+  font-size: 0.85rem;
+  box-shadow: none;
+}
+
+.modal-card span {
+  font-weight: bold;
+}
+
+.modal-card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+}
+
+.modal-empty {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .modal-container {
+    padding: 0px 16px 16px 16px;
+  }
+
+  .modal-title {
+    font-size: 1.25rem;
+  }
+
+  .modal-card {
+    width: 150px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-container {
+    padding: 0px 12px 12px 12px;
+  }
+
+  .modal-title {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .modal-cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .modal-card {
+    width: 100%;
+    max-width: 200px;
+    font-size: 0.75rem;
+  }
+
+  .modal-card img {
+    max-width: 100%;
+  }
+}

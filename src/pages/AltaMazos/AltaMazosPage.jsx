@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"; // <-- Agrega esto
 import { listarCartas, crearMazo } from "@/services/MazosService";
 import { notifySuccess, notifyError } from "@/components/Notificaciones";
 import "@/assets/styles/home.css";
+import "@/assets/styles/altaMazos.css"; // Asegúrate de tener este archivo CSS
 import dorsoCarta from "@/assets/images/Dorso carta.jpg";
 
 const MAX_CARTAS = 5;
@@ -122,21 +123,19 @@ const AltaMazosPage = () => {
                         />
                     </label>
                 </div>
-                <div style={{ marginTop: "1rem" }}>
+                <div className="filtro-cartas">
                     <strong>Filtrar cartas:</strong>
                     <input
                         type="text"
                         placeholder="Atributo"
                         value={filtroAtributo}
                         onChange={(e) => setFiltroAtributo(e.target.value)}
-                        style={{ marginLeft: "10px", marginRight: "10px" }}
                     />
                     <input
                         type="text"
                         placeholder="Nombre"
                         value={filtroNombre}
                         onChange={(e) => setFiltroNombre(e.target.value)}
-                        style={{ marginRight: "10px" }}
                     />
                     <button type="button" onClick={handleLimpiarFiltros}>
                         Limpiar filtros
@@ -148,7 +147,7 @@ const AltaMazosPage = () => {
                         <select
                             value={sortOption}
                             onChange={(e) => setSortOption(e.target.value)}
-                            style={{ marginLeft: "10px" }}
+                            // Aplica la clase CSS
                         >
                             <option value="nombre-asc">Nombre (A-Z)</option>
                             <option value="nombre-desc">Nombre (Z-A)</option>
@@ -162,29 +161,11 @@ const AltaMazosPage = () => {
                     {loading ? (
                         <div>Cargando cartas...</div>
                     ) : (
-                        <div className="cartas-listado"
-    style={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: "1rem",
-        marginTop: "1rem",
-        alignItems: "flex-start", // Alinea arriba todas las cartas
-        minHeight: "320px"
-    }}
->
+                        <div className="cartas-listado">
                             {cartasOrdenadas.map((carta) => (
                                 <div
                                     key={carta.id}
                                     className={`carta-card${cartasSeleccionadas.includes(carta.id) ? " seleccionada" : ""}`}
-                                    style={{
-                                        // border: "1px solid #ccc", // Quitar borde
-                                        borderRadius: "8px",
-                                        padding: "10px",
-                                        width: "180px",
-                                        background: cartasSeleccionadas.includes(carta.id) ? "#e6ffe6" : "#fff",
-                                        fontSize: "0.85rem", // Letras más pequeñas
-                                        boxShadow: "none"
-                                    }}
                                 >
                                     <>
                                         <div>
@@ -207,7 +188,6 @@ const AltaMazosPage = () => {
                                             <img
                                                 src={carta.imagen ? carta.imagen : dorsoCarta}
                                                 alt={carta.nombre}
-                                                style={{ width: "100%", borderRadius: "8px" }}
                                             />
                                         </div>
                                     </>
@@ -222,19 +202,7 @@ const AltaMazosPage = () => {
             {!atBottom && (
                 <button
                     onClick={handleSubmit}
-                    style={{
-                        position: "fixed",
-                        bottom: "30px",
-                        right: "40px",
-                        backgroundColor: "#007bff",
-                        color: "white",
-                        padding: "12px 40px",
-                        border: "none",
-                        borderRadius: "8px",
-                        fontSize: "1.1rem",
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-                        zIndex: 1000,
-                    }}
+                    className="floating-button"
                 >
                     Crear mazo
                 </button>
@@ -244,15 +212,7 @@ const AltaMazosPage = () => {
                 <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "2rem" }}>
                     <button
                         onClick={handleSubmit}
-                        style={{
-                            backgroundColor: "#007bff",
-                            color: "white",
-                            padding: "12px 40px",
-                            border: "none",
-                            borderRadius: "8px",
-                            fontSize: "1.1rem",
-                            boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-                        }}
+                        className="form-button"
                     >
                         Crear mazo
                     </button>
