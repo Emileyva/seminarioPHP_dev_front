@@ -1,21 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { getCartasDeMazo } from "@/services/MazosService";
+import { crearPartida,realizarJugada } from "@/services/jugadaServices";
 import dorsoCarta from "@/assets/images/Dorso carta.jpg";
 import "@/assets/styles/jugarPage.css";
+import { toast } from "react-toastify"; 
 
 const JugarPage = () => {
-  const { mazoId } = useParams(); // Extraer correctamente mazoId del URL
+  const { mazoId } = useParams();
   const [cartasUsuario, setCartasUsuario] = useState([]);
   const [cartasServidor, setCartasServidor] = useState([]);
+  const [partida, setPartida] = useState(null);
+  const [jugadaActual, setJugadaActual] = useState(null);
+  const [resultadoFinal, setResultadoFinal] = useState(null);
+  const partidaCreada = useRef(false); // <-- FLAG
+  const navigate = useNavigate();
 
+  // Traer cartas del mazo
   useEffect(() => {
     const fetchCartas = async () => {
       try {
-        const cartasDelMazo = await getCartasDeMazo(mazoId); // Llama al servicio
+        const cartasDelMazo = await getCartasDeMazo(mazoId);
         if (cartasDelMazo && Array.isArray(cartasDelMazo)) {
-          setCartasUsuario(cartasDelMazo); // Cartas del usuario
-          setCartasServidor(new Array(5).fill({ imagen: dorsoCarta })); // Cartas del servidor con dorso
+          setCartasUsuario(cartasDelMazo);
+          setCartasServidor(new Array(5).fill({ imagen: dorsoCarta }));
         } else {
           console.error("Formato de datos incorrecto:", cartasDelMazo);
         }
@@ -27,14 +35,50 @@ const JugarPage = () => {
     fetchCartas();
   }, [mazoId]);
 
+  // Crear partida automáticamente al entrar (solo una vez)
+  useEffect(() => {
+    const crear = async () => {
+      if (partidaCreada.current) return; // esto evita crear la partida más de una vez
+      partidaCreada.current = true;
+      const res = await crearPartida(mazoId);
+      if (res.error) {
+        alert(res.error);
+      } else {
+        setPartida(res);
+        toast.success("¡Partida iniciada!"); 
+      }
+    };
+    if (mazoId) crear();
+  }, [mazoId]);
+
+  useEffect(() => {
+    console.log("partida actualizada:", partida);
+  }, [partida]);
+
   const handleDragStart = (event, carta) => {
     event.dataTransfer.setData("carta", JSON.stringify(carta));
   };
 
-  const handleDrop = (event) => {
+  const handleDrop = async (event) => {
+    event.preventDefault();
     const carta = JSON.parse(event.dataTransfer.getData("carta"));
-    console.log("Carta arrastrada:", carta);
-    // Aquí puedes manejar la lógica de la carta arrastrada
+    if (!partida || !partida.partida_id) {
+      toast.error("No hay partida activa."); 
+      return;
+    }
+    const res = await realizarJugada(partida.partida_id, carta.id);
+    
+    setJugadaActual(res);
+    if (res.resultado_final) {
+      setResultadoFinal(res.resultado_final);
+    }
+    if (res.error) {
+      toast.error(res.error);
+    } else {
+      toast.success(res.mensaje || res.message || "Jugada realizada correctamente");
+      setCartasUsuario((prev) => prev.filter((c) => c.id !== carta.id));
+      setCartasServidor((prev) => prev.slice(1));
+    }
   };
 
   const handleDragOver = (event) => {
@@ -58,8 +102,45 @@ const JugarPage = () => {
         onDrop={handleDrop}
         onDragOver={handleDragOver}
       >
-        <button className="boton-jugar">Jugar</button>
-        <button className="boton-cancelar">Cancelar</button>
+        {/* Aquí puedes mostrar los datos de la jugada */}
+        {jugadaActual && (
+          <div className="resultado-jugada">
+            <div>
+              <strong>Tu carta:</strong> {jugadaActual.carta_usuario?.nombre}
+              <span style={{ marginLeft: 8 }}>
+                {jugadaActual.ataque_usuario_a}
+              </span>
+            </div>
+            <div>
+              <strong>Carta rival:</strong> {jugadaActual.carta_servidor?.nombre}
+              <span style={{ marginLeft: 8 }}>
+                 {jugadaActual.ataque_usuario_b}
+              </span>
+            </div>
+            <div style={{marginTop: 10}}>
+              <strong>Resultado:</strong> {jugadaActual.resultado}
+            </div>
+          </div>
+        )}
+
+        {resultadoFinal && (
+          <div className="resultado-final">
+            <h2>Resultado final: {resultadoFinal.toUpperCase()}</h2>
+            <button
+              className="boton-volver"
+              onClick={() => navigate("/mis-mazos")}
+            >
+              Volver a Mis Mazos
+            </button>
+          </div>
+        )}
+
+        {!resultadoFinal && (
+          <>
+            <button className="boton-jugar">Jugar</button>
+            <button className="boton-cancelar">Cancelar</button>
+          </>
+        )}
       </div>
 
       {/* Cartas del usuario */}

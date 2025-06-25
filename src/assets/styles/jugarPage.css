@@ -29,14 +29,45 @@
 }
 
 .contenedor-central {
-  width: 300px;
-  height: 200px;
+  width: 320px;
+  min-height: 220px;
   border: 2px dashed #ccc;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
+  background: #fff;
+  position: relative;
+}
+
+.resultado-jugada {
+  background: #f3f3f3;
+  border-radius: 8px;
+  padding: 16px 10px;
+  margin-bottom: 8px;
+  text-align: center;
+  box-shadow: 0 2px 8px #0001;
+  width: 90%;
+}
+
+.resultado-jugada strong {
+  color: #1976d2;
+}
+
+.resultado-final {
+  background: #e0ffe0;
+  border: 2px solid #4caf50;
+  border-radius: 8px;
+  padding: 20px 10px;
+  margin-top: 10px;
+  text-align: center;
+  width: 90%;
+}
+
+.resultado-final h2 {
+  margin: 0 0 10px 0;
+  color: #388e3c;
 }
 
 .boton-jugar {
@@ -46,6 +77,8 @@
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .boton-cancelar {
@@ -55,4 +88,18 @@
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.boton-volver {
+  margin-top: 16px;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
 }
