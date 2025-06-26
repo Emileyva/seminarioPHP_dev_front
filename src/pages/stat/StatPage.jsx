@@ -38,9 +38,16 @@ const StatPage = () => {
   // Ordenar estadísticas
   const sortedEstadisticas = [...estadisticas].sort((a, b) => {
     if (order === "desc") {
-      return b.promedioGanadas - a.promedioGanadas;
+      // Primero por promedio, luego por ganadas si hay empate
+      return (
+        b.promedioGanadas - a.promedioGanadas ||
+        parseInt(b.ganadas) - parseInt(a.ganadas)
+      );
     } else {
-      return a.promedioGanadas - b.promedioGanadas;
+      return (
+        a.promedioGanadas - b.promedioGanadas ||
+        parseInt(a.ganadas) - parseInt(b.ganadas)
+      );
     }
   });
 

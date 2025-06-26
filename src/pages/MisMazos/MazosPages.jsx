@@ -26,6 +26,12 @@ const MazosPages = () => {
   }, []);
 
   const handleEliminar = async (mazoId) => {
+    // Busca el mazo para verificar si fue usado
+    const mazo = mazos.find((m) => m.id === mazoId);
+    if (!mazo.usadoEnPartida) {
+      const confirmado = window.confirm("¿Seguro que quieres eliminar este mazo?");
+      if (!confirmado) return;
+    }
     const response = await eliminarMazo(mazoId);
     if (response.error) {
       notifyError(response.error);

@@ -162,21 +162,29 @@ const AltaMazosPage = () => {
                         <div>Cargando cartas...</div>
                     ) : (
                         <div className="cartas-listado">
-                            {cartasOrdenadas.map((carta) => (
-                                <div
-                                    key={carta.id}
-                                    className={`carta-card${cartasSeleccionadas.includes(carta.id) ? " seleccionada" : ""}`}
-                                >
-                                    <>
+                            {cartasOrdenadas.map((carta) => {
+                                const seleccionada = cartasSeleccionadas.includes(carta.id);
+                                const maxAlcanzado = cartasSeleccionadas.length >= MAX_CARTAS;
+                                return (
+                                    <div
+                                        key={carta.id}
+                                        className={
+                                            `carta-card` +
+                                            (seleccionada ? " seleccionada" : "") +
+                                            (!seleccionada && maxAlcanzado ? " no-seleccionable" : "")
+                                        }
+                                        onClick={() => handleSeleccionarCarta(carta.id)}
+                                        style={{ cursor: maxAlcanzado && !seleccionada ? "not-allowed" : "pointer" }}
+                                    >
                                         <div>
                                             <input
                                                 type="checkbox"
-                                                checked={cartasSeleccionadas.includes(carta.id)}
-                                                onChange={() => handleSeleccionarCarta(carta.id)}
-                                                disabled={
-                                                    !cartasSeleccionadas.includes(carta.id) &&
-                                                    cartasSeleccionadas.length >= MAX_CARTAS
-                                                }
+                                                checked={seleccionada}
+                                                onChange={(e) => {
+                                                    e.stopPropagation();
+                                                    handleSeleccionarCarta(carta.id);
+                                                }}
+                                                disabled={!seleccionada && maxAlcanzado}
                                             />
                                             <span style={{ fontWeight: "bold", marginLeft: "8px" }}>{carta.nombre}</span>
                                         </div>
@@ -190,9 +198,9 @@ const AltaMazosPage = () => {
                                                 alt={carta.nombre}
                                             />
                                         </div>
-                                    </>
-                                </div>
-                            ))}
+                                    </div>
+                                );
+                            })}
                         </div>
                     )}
                 </div>

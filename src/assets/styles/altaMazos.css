@@ -25,6 +25,12 @@
   background: #e6ffe6;
 }
 
+.carta-card.no-seleccionable {
+  opacity: 0.5;
+  background: #e0e0e0;
+  cursor: not-allowed;
+}
+
 .carta-card img {
   width: 100%;
   border-radius: 8px;

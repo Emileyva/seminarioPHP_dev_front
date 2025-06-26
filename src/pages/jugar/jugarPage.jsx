@@ -85,6 +85,16 @@ const JugarPage = () => {
     event.preventDefault();
   };
 
+  const handleCancelar = () => {
+    // Opcional: aquí podrías llamar a un servicio para cancelar la partida en el backend si lo necesitas
+    setJugadaActual(null);
+    setResultadoFinal(null);
+    setPartida(null);
+    setCartasUsuario([]);
+    setCartasServidor([]);
+    navigate("/mis-mazos"); // Redirige al usuario fuera de la partida
+  };
+
   return (
     <div className="jugar-page">
       {/* Cartas del servidor */}
@@ -97,10 +107,9 @@ const JugarPage = () => {
       </div>
 
       {/* Contenedor central para arrastrar cartas */}
-      <div
-        className="contenedor-central"
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
+      <div className="contenedor-central"
+           onDrop={handleDrop}
+           onDragOver={handleDragOver}
       >
         {/* Aquí puedes mostrar los datos de la jugada */}
         {jugadaActual && (
@@ -138,7 +147,7 @@ const JugarPage = () => {
         {!resultadoFinal && (
           <>
             <button className="boton-jugar">Jugar</button>
-            <button className="boton-cancelar">Cancelar</button>
+            <button className="boton-cancelar" onClick={handleCancelar}>Cancelar</button>
           </>
         )}
       </div>
