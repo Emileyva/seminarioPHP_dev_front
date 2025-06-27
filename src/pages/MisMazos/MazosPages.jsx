@@ -4,6 +4,7 @@ import { notifySuccess, notifyError } from "@/components/Notificaciones";
 import { useNavigate } from "react-router-dom";
 import MazoModal from "./MazoModal"; // Importa el modal
 import "@/assets/styles/MazosPages.css"; // Importa el nuevo CSS
+import "@/assets/styles/DeleteModal.css"; // Importa los estilos del modal
 
 const MazosPages = () => {
   const [mazos, setMazos] = useState([]);
@@ -11,6 +12,10 @@ const MazosPages = () => {
   const [newMazoName, setNewMazoName] = useState("");
   const [modalVisible, setModalVisible] = useState(false); // Estado para el modal
   const [mazoSeleccionado, setMazoSeleccionado] = useState(null); // Estado para el mazo seleccionado
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false); // Estado para el modal de eliminación
+  const [mazoToDelete, setMazoToDelete] = useState(null); // Estado para el mazo a eliminar
+  const [playModalVisible, setPlayModalVisible] = useState(false); // Estado para el modal de jugar
+  const [mazoToPlay, setMazoToPlay] = useState(null); // Estado para el mazo a jugar
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -79,6 +84,44 @@ const MazosPages = () => {
     navigate("/alta-mazo");
   };
 
+  const handleOpenDeleteModal = (mazo) => {
+    setMazoToDelete(mazo);
+    setDeleteModalVisible(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setDeleteModalVisible(false);
+    setMazoToDelete(null);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!mazoToDelete.usadoEnPartida) {
+      const response = await eliminarMazo(mazoToDelete.id);
+      if (response.error) {
+        notifyError(response.error);
+      } else {
+        notifySuccess("Mazo eliminado correctamente.");
+        setMazos(mazos.filter((mazo) => mazo.id !== mazoToDelete.id));
+      }
+      handleCloseDeleteModal();
+    }
+  };
+
+  const handleOpenPlayModal = (mazo) => {
+    setMazoToPlay(mazo);
+    setPlayModalVisible(true);
+  };
+
+  const handleClosePlayModal = () => {
+    setPlayModalVisible(false);
+    setMazoToPlay(null);
+  };
+
+  const handleConfirmPlay = () => {
+    navigate(`/jugar/${mazoToPlay.id}`); // Redirige a la página de jugar con el mazoId en la URL
+    handleClosePlayModal();
+  };
+
   return (
     <div className="mazos-container">
       <h2>Mis Mazos</h2>
@@ -107,7 +150,7 @@ const MazosPages = () => {
                 <button className="ver-mazo" onClick={() => handleVerMazo(mazo)}>Ver Mazo</button>
                 <button
                   className="eliminar"
-                  onClick={() => handleEliminar(mazo.id)}
+                  onClick={() => handleOpenDeleteModal(mazo)}
                   disabled={mazo.usadoEnPartida}
                 >
                   Eliminar
@@ -128,7 +171,7 @@ const MazosPages = () => {
                 ) : (
                   <button className="editar" onClick={() => setEditingMazoId(mazo.id)}>Editar</button>
                 )}
-                <button className="jugar" onClick={() => handleJugar(mazo.id)}>Jugar</button>
+                <button className="jugar" onClick={() => handleOpenPlayModal(mazo)}>Jugar</button>
               </td>
             </tr>
           ))}
@@ -152,6 +195,54 @@ const MazosPages = () => {
         onClose={() => setModalVisible(false)}
         mazo={mazoSeleccionado}
       />
+      {/* Modal para eliminar mazo */}
+      {deleteModalVisible && (
+        <>
+          <div className="modal-overlay"></div>
+          <div className="delete-modal">
+            <h3>¿Seguro que quieres eliminar este mazo?</h3>
+            <p>{mazoToDelete?.nombre}</p>
+            <div className="modal-buttons">
+              <button
+                onClick={handleConfirmDelete}
+                className="confirm-button"
+              >
+                Confirmar
+              </button>
+              <button
+                onClick={handleCloseDeleteModal}
+                className="cancel-button"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+      {/* Modal para jugar */}
+      {playModalVisible && (
+        <>
+          <div className="modal-overlay"></div>
+          <div className="delete-modal play-modal">
+            <h3>¿Quieres jugar con este mazo?</h3>
+            <p>{mazoToPlay?.nombre}</p>
+            <div className="modal-buttons">
+              <button
+                onClick={handleConfirmPlay}
+                className="confirm-button"
+              >
+                Confirmar
+              </button>
+              <button
+                onClick={handleClosePlayModal}
+                className="cancel-button"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
