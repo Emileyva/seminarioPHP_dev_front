@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getCartasDeMazo } from "@/services/MazosService";
-import { crearPartida,realizarJugada } from "@/services/jugadaServices";
+import { crearPartida, realizarJugada } from "@/services/jugadaServices";
 import dorsoCarta from "@/assets/images/Dorso carta.jpg";
 import "@/assets/styles/jugarPage.css";
-import { toast } from "react-toastify"; 
+import { toast } from "react-toastify";
 
 const JugarPage = () => {
   const { mazoId } = useParams();
@@ -45,7 +45,7 @@ const JugarPage = () => {
         alert(res.error);
       } else {
         setPartida(res);
-        toast.success("¡Partida iniciada!"); 
+        toast.success("¡Partida iniciada!");
       }
     };
     if (mazoId) crear();
@@ -63,11 +63,11 @@ const JugarPage = () => {
     event.preventDefault();
     const carta = JSON.parse(event.dataTransfer.getData("carta"));
     if (!partida || !partida.partida_id) {
-      toast.error("No hay partida activa."); 
+      toast.error("No hay partida activa.");
       return;
     }
     const res = await realizarJugada(partida.partida_id, carta.id);
-    
+
     setJugadaActual(res);
     if (res.resultado_final) {
       setResultadoFinal(res.resultado_final);
@@ -108,8 +108,8 @@ const JugarPage = () => {
 
       {/* Contenedor central para arrastrar cartas */}
       <div className="contenedor-central"
-           onDrop={handleDrop}
-           onDragOver={handleDragOver}
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
       >
         {/* Aquí puedes mostrar los datos de la jugada */}
         {jugadaActual && (
@@ -123,10 +123,10 @@ const JugarPage = () => {
             <div>
               <strong>Carta rival:</strong> {jugadaActual.carta_servidor?.nombre}
               <span style={{ marginLeft: 8 }}>
-                 {jugadaActual.ataque_usuario_b}
+                {jugadaActual.ataque_usuario_b}
               </span>
             </div>
-            <div style={{marginTop: 10}}>
+            <div style={{ marginTop: 10 }}>
               <strong>Resultado:</strong> {jugadaActual.resultado}
             </div>
           </div>
@@ -147,7 +147,6 @@ const JugarPage = () => {
         {!resultadoFinal && (
           <>
             <button className="boton-jugar">Jugar</button>
-            <button className="boton-cancelar" onClick={handleCancelar}>Cancelar</button>
           </>
         )}
       </div>
