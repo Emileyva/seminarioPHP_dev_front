@@ -4,6 +4,8 @@ import { getCartasDeMazo } from "@/services/MazosService";
 import { crearPartida, realizarJugada } from "@/services/jugadaServices";
 import dorsoCarta from "@/assets/images/Dorso carta.jpg";
 import "@/assets/styles/jugarPage.css";
+import "@/assets/styles/loading.css"; 
+
 import { toast } from "react-toastify";
 
 const JugarPage = () => {
@@ -53,6 +55,7 @@ const JugarPage = () => {
       partidaCreada.current = true;
       const res = await crearPartida(mazoId);
       if (res.error) {
+        navigate("/mis-mazos");
         alert(res.error);
       } else {
         setPartida(res);
@@ -131,6 +134,15 @@ const JugarPage = () => {
     setCartasServidor([]);
     navigate("/mis-mazos"); // Redirige al usuario fuera de la partida
   };
+
+if (!partida) {
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div>
+        <div>Cargando partida...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="jugar-page">

@@ -20,6 +20,7 @@ const StatPage = () => {
           promedioGanadas: parseInt(stat.ganadas) / (parseInt(stat.ganadas) + parseInt(stat.empatadas) + parseInt(stat.perdidas) || 1),
         }));
         setEstadisticas(processedData);
+        console.log("Estadísticas obtenidas:", data);
       } else {
         console.error("La respuesta de la API no contiene un arreglo válido:", data);
         setEstadisticas({ error: "Formato de datos inválido" });
@@ -117,7 +118,7 @@ const StatPage = () => {
                   textAlign: "center",
                 }}
               >
-                <td style={{ padding: 8 }}>{stat.nombre_publico || `Usuario ${stat.usuario_id}`}</td>
+                <td style={{ padding: 8 }}>{stat.usuario || `Usuario ${stat.id}`}</td>
                 <td style={{ padding: 8 }}>{stat.totalPartidas}</td>
                 <td style={{ padding: 8 }}>{stat.ganadas}</td>
                 <td style={{ padding: 8 }}>{stat.empatadas}</td>
