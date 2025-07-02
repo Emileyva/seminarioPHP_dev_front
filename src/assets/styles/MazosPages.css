@@ -24,7 +24,7 @@ button {
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.9rem;
-  margin: 5px; /* Añade espacio entre los botones */
+  margin: 5px; 
 }
 
 button:disabled {

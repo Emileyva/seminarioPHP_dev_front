@@ -48,7 +48,7 @@
     box-shadow: none;
   }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .navbar-toggle {
     display: block;

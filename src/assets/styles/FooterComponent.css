@@ -33,7 +33,7 @@
   font-size: 0.95rem;
 }
 
-/* Responsive */
+
 @media (max-width: 600px) {
   .footer-nav {
     gap: 0.7rem;
