@@ -151,3 +151,24 @@ export const listarCartas = async (atributo = "", nombre = "") => {
     return { error: error.response?.data?.error || "Error al obtener cartas" };
   }
 };
+
+
+export const getMazoServidor = async () => {
+  try {
+    const authData = getAuthData();
+    if (authData.error) {
+      return authData;
+    }
+    const { token } = authData;
+
+    const response = await api.get("/mazos/servidor", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data; // Devuelve el mazo y sus cartas
+  } catch (error) {
+    console.error("Error en getMazoServidor:", error);
+    return { error: error.response?.data?.error || "Error al obtener el mazo del servidor" };
+  }
+};

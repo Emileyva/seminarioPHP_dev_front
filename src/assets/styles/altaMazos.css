@@ -3,8 +3,8 @@
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 1rem;
-  align-items: center; /* Centra verticalmente las cartas */
-  justify-content: center; /* Centra horizontalmente las cartas */
+  align-items: center;
+  justify-content: center;
   min-height: 320px;
 }
 
@@ -13,12 +13,12 @@
   padding: 10px;
   width: 180px;
   background: #fff;
-  font-size: 0.85rem; /* Letras más pequeñas */
+  font-size: 0.85rem;
   box-shadow: none;
-  display: flex; /* Asegura que el contenido interno esté centrado */
+  display: flex;
   flex-direction: column;
-  align-items: start; /* Centra el contenido dentro de cada carta */
-  justify-content: center; /* Centra el contenido dentro de cada carta */
+  align-items: start;
+  justify-content: center;
 }
 
 .carta-card.seleccionada {
@@ -62,47 +62,46 @@
 
 .filtro-cartas {
   display: flex;
-  flex-direction: row; /* Asegura que los elementos estén en fila */
-  
-  align-items: center; /* Centra verticalmente los elementos */
+  flex-direction: row;
+  align-items: center;
   margin-top: 1rem;
 }
 
 select {
   padding: 10px;
-  border: 1px solid #ccc; /* Borde gris claro */
-  border-radius: 8px; /* Bordes redondeados */
-  background-color: #fff; /* Fondo blanco */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
   font-size: 1rem;
-  color: #555; /* Texto gris oscuro */
+  color: #555;
   outline: none;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 select:focus {
-  border-color: #FFBF53; /* Amarillo en foco */
-  box-shadow: 0 0 5px rgba(255, 191, 83, 0.8); /* Sombra amarilla */
+  border-color: #FFBF53;
+  box-shadow: 0 0 5px rgba(255, 191, 83, 0.8);
 }
 
 option {
   font-size: 1rem;
-  color: #333; /* Texto gris oscuro */
+  color: #333;
 }
 
 @media (max-width: 768px) {
   .filtro-cartas {
     display: flex;
-    align-items: flex-start; /* Alinea los elementos al inicio verticalmente */
+    align-items: flex-start;
     margin-top: 1rem;
-    flex-direction: column; /* Cambia la dirección a columna */
+    flex-direction: column;
   }
 
   .filtro-cartas input {
-    margin-bottom: 10px; /* Agrega margen inferior a los inputs */
-    width: 100%; /* Asegúrate de que los inputs ocupen todo el ancho */
+    margin-bottom: 10px;
+    width: 100%;
   }
 
   .filtro-cartas button {
-    margin-top: 10px; /* Agrega margen superior al botón */
+    margin-top: 10px;
   }
 }

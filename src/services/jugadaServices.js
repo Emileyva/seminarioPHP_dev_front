@@ -4,7 +4,7 @@ import { getAuthData } from "@/helper/getAuthData";
 export const crearPartida = async (mazoId) => {
   try {
     const authData = getAuthData();
-    debugger
+    
     if (authData.error) {
       return authData;
     }

@@ -50,7 +50,7 @@ export const loginService = async (loginData) => {
   
   // Llamada al endpoint de login
   const loginRes = await loginUser(loginData);
-  console.log("Respuesta de loginUser:", loginRes); debugger;
+  console.log("Respuesta de loginUser:", loginRes); 
   if (loginRes.error) {
     return loginRes;
   }
