@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getCartasDeMazo } from "@/services/MazosService";
+import { getCartasDeMazo, getMazoServidor } from "@/services/MazosService";
 import { crearPartida, realizarJugada } from "@/services/jugadaServices";
 import dorsoCarta from "@/assets/images/Dorso carta.jpg";
 import "@/assets/styles/jugarPage.css";
 import "@/assets/styles/loading.css"; 
-
 import { toast } from "react-toastify";
 
 const JugarPage = () => {
@@ -15,43 +14,46 @@ const JugarPage = () => {
   const [partida, setPartida] = useState(null);
   const [jugadaActual, setJugadaActual] = useState(null);
   const [resultadoFinal, setResultadoFinal] = useState(null);
-  const partidaCreada = useRef(false); // <-- FLAG
+  const partidaCreada = useRef(false); 
   const navigate = useNavigate();
 
-  // Traer cartas del mazo
+  
   useEffect(() => {
     const fetchCartas = async () => {
       try {
+        
         const cartasDelMazo = await getCartasDeMazo(mazoId);
         if (cartasDelMazo && Array.isArray(cartasDelMazo)) {
           setCartasUsuario(cartasDelMazo);
-          // Validación más estricta de atributos en cartas del servidor
-          const cartasServidor = cartasDelMazo.map((carta, index) => ({
-            imagen: dorsoCarta,
-            atributo: carta.atributo && typeof carta.atributo === 'string' && carta.atributo.trim() !== ''
-              ? carta.atributo
-              : `Atributo no disponible ${index + 1}`, // Validación más estricta para datos faltantes
-          }));
-          setCartasServidor(cartasServidor);
-
-          // Agregar logs para depuración
-          console.log("Cartas del servidor:", cartasServidor);
-          console.log("Cartas del usuario:", cartasDelMazo);
         } else {
           console.error("Formato de datos incorrecto:", cartasDelMazo);
         }
+
+        
+        const mazoServidor = await getMazoServidor();
+        if (mazoServidor && Array.isArray(mazoServidor.cartas)) {
+          
+          const cartasServidor = mazoServidor.cartas.map((carta) => ({
+            ...carta,
+            imagen: dorsoCarta,
+          }));
+          setCartasServidor(cartasServidor);
+          console.log("Cartas del servidorrrrrr:", cartasServidor);
+        } else {
+          setCartasServidor([]);
+        }
       } catch (error) {
-        console.error("Error al obtener las cartas del mazo:", error);
+        console.error("Error al obtener las cartas:", error);
       }
     };
 
     fetchCartas();
   }, [mazoId]);
 
-  // Crear partida automáticamente al entrar (solo una vez)
+  
   useEffect(() => {
     const crear = async () => {
-      if (partidaCreada.current) return; // esto evita crear la partida más de una vez
+      if (partidaCreada.current) return;
       partidaCreada.current = true;
       const res = await crearPartida(mazoId);
       if (res.error) {
@@ -92,10 +94,10 @@ const JugarPage = () => {
       toast.success(res.mensaje || res.message || "Jugada realizada correctamente");
       setCartasUsuario((prev) => prev.filter((c) => c.id !== carta.id));
 
-      // Elimina la carta jugada por el servidor (la primera del mazo)
+     
       setCartasServidor((prev) => {
         const updatedCartas = [...prev];
-        updatedCartas.shift(); // Elimina la carta jugada por el servidor
+        updatedCartas.shift(); 
         return updatedCartas;
       });
     }
@@ -106,13 +108,13 @@ const JugarPage = () => {
   };
 
   const handleCancelar = () => {
-    // Opcional: aquí podrías llamar a un servicio para cancelar la partida en el backend si lo necesitas
+    
     setJugadaActual(null);
     setResultadoFinal(null);
     setPartida(null);
     setCartasUsuario([]);
     setCartasServidor([]);
-    navigate("/mis-mazos"); // Redirige al usuario fuera de la partida
+    navigate("/mis-mazos"); 
   };
 
 if (!partida) {
@@ -126,23 +128,23 @@ if (!partida) {
 
   return (
     <div className="jugar-page">
-      {/* Cartas del servidor */}
+      
       <div className="cartas-servidor">
         {cartasServidor.map((carta, index) => (
           <div key={index} className="carta">
             <div className="atributo-titulo">Atributo</div>
-            <div className="atributo-servidor">???</div>
+            <div className="atributo-servidor">{carta.atributo}</div>
             <img src={carta.imagen} alt="Dorso de carta" />
           </div>
         ))}
       </div>
 
-      {/* Contenedor central para arrastrar cartas */}
+      
       <div className="contenedor-central"
         onDrop={handleDrop}
         onDragOver={handleDragOver}
       >
-        {/* Aquí puedes mostrar los datos de la jugada */}
+        
         {jugadaActual && (
           <div className="resultado-jugada">
             <div>
@@ -178,7 +180,7 @@ if (!partida) {
        
       </div>
 
-      {/* Cartas del usuario */}
+      
       <div className="cartas-usuario">
         {cartasUsuario.map((carta) => (
           <div

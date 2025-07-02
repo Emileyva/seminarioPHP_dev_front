@@ -9,23 +9,36 @@
 .cartas-usuario {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 24px;           /* Más espacio entre cartas */
+  padding: 20px 0;     /* Espacio arriba y abajo */
+  margin-bottom: 16px; /* Espacio debajo del grupo de cartas */
 }
 
 .carta {
-  width: 100px;
-  height: 150px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  width: 170px;        /* Más ancha */
+  height: 220px;       /* Más alta */
+  border: 1.5px solid #bdbdbd;
+  border-radius: 16px;
   text-align: center;
-  padding: 5px;
+  padding: 10px 8px;  /* Más padding interno */
   background-color: #f9f9f9;
+  box-shadow: 0 2px 8px #0002;
+  transition: transform 0.15s;
+  margin: 0 8px;       /* Más espacio lateral entre cartas */
+  font-size: 1.08em;   /* Un poco más grande */
+}
+
+.carta:hover {
+  transform: translateY(-6px) scale(1.04);
+  box-shadow: 0 6px 18px #0003;
 }
 
 .carta img {
   width: 100%;
-  height: auto;
-  border-radius: 8px;
+  height: 130px;
+  object-fit: contain;
+  border-radius: 10px;
+  margin-bottom: 8px;
 }
 
 .contenedor-central {
@@ -94,10 +107,12 @@
 .atributo-titulo {
   text-align: center;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
+  font-size: 1.05em;
 }
 
-.atributo-servidor{
+.atributo-servidor {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  font-size: 1em;
 }
