@@ -92,30 +92,10 @@ const JugarPage = () => {
       toast.success(res.mensaje || res.message || "Jugada realizada correctamente");
       setCartasUsuario((prev) => prev.filter((c) => c.id !== carta.id));
 
-      // Actualizar el atributo de la carta jugada por el servidor
+      // Elimina la carta jugada por el servidor (la primera del mazo)
       setCartasServidor((prev) => {
         const updatedCartas = [...prev];
-        if (res.carta_servidor) {
-          const cartaServidorIndex = updatedCartas.findIndex(
-            (carta) => carta.imagen === dorsoCarta
-          );
-          if (cartaServidorIndex !== -1) {
-            // Manejo de errores más detallado en handleDrop
-            if (!res.carta_servidor || !res.carta_servidor.atributo) {
-              console.error("Error: La carta del servidor no contiene atributo válido.");
-            }
-
-            // Mostrar mensaje específico si el atributo no está disponible
-            updatedCartas[cartaServidorIndex] = {
-              ...updatedCartas[cartaServidorIndex],
-              atributo: res.carta_servidor?.atributo || "Atributo desconocido",
-            };
-          } else {
-            console.warn("No se encontró una carta del servidor para actualizar.");
-          }
-        } else {
-          console.error("La respuesta del servidor no contiene información de la carta.");
-        }
+        updatedCartas.shift(); // Elimina la carta jugada por el servidor
         return updatedCartas;
       });
     }
@@ -151,7 +131,7 @@ if (!partida) {
         {cartasServidor.map((carta, index) => (
           <div key={index} className="carta">
             <div className="atributo-titulo">Atributo</div>
-            <div className="atributo-servidor">{carta.atributo}</div>
+            <div className="atributo-servidor">???</div>
             <img src={carta.imagen} alt="Dorso de carta" />
           </div>
         ))}
