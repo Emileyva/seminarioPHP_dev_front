@@ -5,7 +5,7 @@ const StatPage = () => {
   const [estadisticas, setEstadisticas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [order, setOrder] = useState("desc"); // Orden por defecto: mejor performance
+  const [order, setOrder] = useState("desc");
 
   const itemsPerPage = 5;
 
@@ -13,7 +13,7 @@ const StatPage = () => {
     const fetchEstadisticas = async () => {
       const data = await getEstadisticas();
       if (Array.isArray(data.result)) {
-        // Calcula el promedio de partidas ganadas
+        
         const processedData = data.result.map((stat) => ({
           ...stat,
           totalPartidas: parseInt(stat.ganadas) + parseInt(stat.empatadas) + parseInt(stat.perdidas),
@@ -36,10 +36,10 @@ const StatPage = () => {
     return <div>Error: {estadisticas.error}</div>;
   }
 
-  // Ordenar estadísticas
+  
   const sortedEstadisticas = [...estadisticas].sort((a, b) => {
     if (order === "desc") {
-      // Primero por promedio, luego por ganadas si hay empate
+      
       return (
         b.promedioGanadas - a.promedioGanadas ||
         parseInt(b.ganadas) - parseInt(a.ganadas)
@@ -52,7 +52,7 @@ const StatPage = () => {
     }
   });
 
-  // Paginado
+  
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedEstadisticas = sortedEstadisticas.slice(startIndex, startIndex + itemsPerPage);
 

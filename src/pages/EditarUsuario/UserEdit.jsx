@@ -23,7 +23,7 @@ const EditarUsuarioPage = () => {
             newErrors.push("El nombre no puede tener más de 30 caracteres.");
         }
 
-        // Validar contraseña
+        
         if (formData.password.length < 8) {
             newErrors.push("La contraseña debe tener al menos 8 caracteres.");
         }
@@ -40,7 +40,7 @@ const EditarUsuarioPage = () => {
             newErrors.push("La contraseña debe tener al menos un carácter especial.");
         }
 
-        // Validar repetir contraseña
+        
         if (formData.password !== formData.repetirPassword) {
             newErrors.push("Las contraseñas no coinciden.");
         }
@@ -54,7 +54,7 @@ const EditarUsuarioPage = () => {
         setErrors([]);
         const isValid = validateForm();
         if (isValid) {
-            const response = await actualizarUsuario(formData); // Implementa este servicio
+            const response = await actualizarUsuario(formData);
             if (response?.error) {
                 setErrors([response.error]);
                 notifyError(response.error);

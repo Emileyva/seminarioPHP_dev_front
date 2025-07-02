@@ -15,7 +15,7 @@ const RegistroPage = () => {
   const validateForm = async () => {
     const newErrors = [];
 
-    // Validar usuario
+    
     if (formData.usuario.length < 6 || formData.usuario.length > 20) {
       newErrors.push("El usuario debe tener entre 6 y 20 caracteres.");
     }
@@ -23,7 +23,7 @@ const RegistroPage = () => {
       newErrors.push("El usuario debe ser alfanumérico.");
     }
 
-    // Validar nombre
+    
     if (!formData.nombre.trim()) {
       newErrors.push("El nombre no puede estar vacío.");
     }
@@ -31,7 +31,7 @@ const RegistroPage = () => {
       newErrors.push("El nombre no puede tener más de 30 caracteres.");
     }
 
-    // Validar contraseña
+    
     if (formData.password.length < 8) {
       newErrors.push("La contraseña debe tener al menos 8 caracteres.");
     }
@@ -58,14 +58,14 @@ const RegistroPage = () => {
     const isValid = await validateForm();
     if (isValid) {
       const response = await registrarUsuario(formData);
-      console.log("Respuesta procesada:", response); // Depuración
+      console.log("Respuesta procesada:", response); 
       if (response.error) {
-        setErrors([response.error]); // Muestra el error del backend
+        setErrors([response.error]); 
         notifyError(response.error);
       } else {
         notifySuccess("Registro exitoso. Redirigiendo a la página de inicio de sesión...");
-        setFormData({ usuario: "", nombre: "", password: "" }); // Limpia el formulario
-        setTimeout(() => navigate("/login"), 3000); // Redirige después de 3 segundos
+        setFormData({ usuario: "", nombre: "", password: "" });
+        setTimeout(() => navigate("/login"), 3000); 
       }
     } else {
       notifyError("Por favor, corrige los errores en el formulario.");

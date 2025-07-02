@@ -1,5 +1,5 @@
 import React from "react";
-import dorsoCarta from "@/assets/images/Dorso carta.jpg"; // Asegúrate de que la ruta sea correcta
+import dorsoCarta from "@/assets/images/Dorso carta.jpg";
 import "@/assets/styles/MazoModal.css";
 
 const MazoModal = ({ visible, onClose, mazo }) => {

@@ -2,20 +2,20 @@ import React, { useState, useEffect } from "react";
 import { getMazos, eliminarMazo, editarMazo, getCartasDeMazo } from "@/services/MazosService";
 import { notifySuccess, notifyError } from "@/components/Notificaciones";
 import { useNavigate } from "react-router-dom";
-import MazoModal from "./MazoModal"; // Importa el modal
-import "@/assets/styles/MazosPages.css"; // Importa el nuevo CSS
-import "@/assets/styles/DeleteModal.css"; // Importa los estilos del modal
+import MazoModal from "./MazoModal"; 
+import "@/assets/styles/MazosPages.css"; 
+import "@/assets/styles/DeleteModal.css"; 
 
 const MazosPages = () => {
   const [mazos, setMazos] = useState([]);
   const [editingMazoId, setEditingMazoId] = useState(null);
   const [newMazoName, setNewMazoName] = useState("");
-  const [modalVisible, setModalVisible] = useState(false); // Estado para el modal
-  const [mazoSeleccionado, setMazoSeleccionado] = useState(null); // Estado para el mazo seleccionado
-  const [deleteModalVisible, setDeleteModalVisible] = useState(false); // Estado para el modal de eliminación
-  const [mazoToDelete, setMazoToDelete] = useState(null); // Estado para el mazo a eliminar
-  const [playModalVisible, setPlayModalVisible] = useState(false); // Estado para el modal de jugar
-  const [mazoToPlay, setMazoToPlay] = useState(null); // Estado para el mazo a jugar
+  const [modalVisible, setModalVisible] = useState(false); 
+  const [mazoSeleccionado, setMazoSeleccionado] = useState(null); 
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false); 
+  const [mazoToDelete, setMazoToDelete] = useState(null); 
+  const [playModalVisible, setPlayModalVisible] = useState(false); 
+  const [mazoToPlay, setMazoToPlay] = useState(null); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const MazosPages = () => {
   }, []);
 
   const handleEliminar = async (mazoId) => {
-    // Busca el mazo para verificar si fue usado
+    
     const mazo = mazos.find((m) => m.id === mazoId);
     if (!mazo.usadoEnPartida) {
       const confirmado = window.confirm("¿Seguro que quieres eliminar este mazo?");
@@ -77,7 +77,7 @@ const MazosPages = () => {
   };
 
   const handleJugar = (mazoId) => {
-    navigate(`/jugar/${mazoId}`); // Redirige a la página de jugar con el mazoId en la URL
+    navigate(`/jugar/${mazoId}`);
   };
 
   const handleCrearNuevoMazo = () => {
@@ -118,7 +118,7 @@ const MazosPages = () => {
   };
 
   const handleConfirmPlay = () => {
-    navigate(`/jugar/${mazoToPlay.id}`); // Redirige a la página de jugar con el mazoId en la URL
+    navigate(`/jugar/${mazoToPlay.id}`);
     handleClosePlayModal();
   };
 
@@ -195,7 +195,7 @@ const MazosPages = () => {
         onClose={() => setModalVisible(false)}
         mazo={mazoSeleccionado}
       />
-      {/* Modal para eliminar mazo */}
+      {}
       {deleteModalVisible && (
         <>
           <div className="modal-overlay"></div>
@@ -219,7 +219,7 @@ const MazosPages = () => {
           </div>
         </>
       )}
-      {/* Modal para jugar */}
+      {}
       {playModalVisible && (
         <>
           <div className="modal-overlay"></div>
