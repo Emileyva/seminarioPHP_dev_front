@@ -20,7 +20,7 @@
   letter-spacing: 2px;
 }
 
-/* Responsive */
+
 @media (max-width: 600px) {
   .header-title {
     font-size: 1.2rem;
