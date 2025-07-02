@@ -160,7 +160,7 @@ export const getMazoServidor = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data; // Devuelve el mazo y sus cartas
+    return response.data;
   } catch (error) {
     console.error("Error en getMazoServidor:", error);
     return { error: error.response?.data?.error || "Error al obtener el mazo del servidor" };

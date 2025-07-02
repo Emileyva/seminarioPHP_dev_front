@@ -15,7 +15,7 @@ const EditarUsuarioPage = () => {
     const validateForm = () => {
         const newErrors = [];
 
-        // Validar nombre
+        
         if (!formData.nombre.trim()) {
             newErrors.push("El nombre no puede estar vacío.");
         }

@@ -21,7 +21,7 @@ export const getUsuario = async (usuarioId) => {
     console.log(" usuario obtenido:", response.data);
     return response.data;
   } catch (error) {
-    // Log detallado
+    
     console.error("Error obteniendo  usuario:", error);
     if (error.response) {
       console.error("Respuesta del servidor:", error.response.data);

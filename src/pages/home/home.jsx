@@ -24,7 +24,7 @@ function Home() {
       </p>
       <div className="slider-section">
         <Slider {...sliderSettings}>
-           {/* Slide 1 */}
+           {}
           <div className="slide">
             <div style={{ position: "relative", width: "100%", height: "500px" }}>
               <img
@@ -50,7 +50,7 @@ function Home() {
               </div>
             </div>
           </div>
-          {/* Slide 2 */}
+          {}
           <div className="slide">
             <div style={{ position: "relative", width: "100%", height: "500px" }}>
               <img
