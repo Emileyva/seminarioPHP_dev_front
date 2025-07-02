@@ -6,11 +6,11 @@ const isTokenValid = () => {
   if (!token) return false;
 
   try {
-    const payload = JSON.parse(atob(token.split(".")[1])); // Decodifica el token
-    const isExpired = payload.exp * 1000 < Date.now(); // Verifica si está expirado
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    const isExpired = payload.exp * 1000 < Date.now();
     return !isExpired;
   } catch (error) {
-    return false; // Si hay un error, el token no es válido
+    return false;
   }
 };
 
