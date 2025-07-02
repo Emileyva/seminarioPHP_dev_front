@@ -81,7 +81,7 @@ function Home() {
           </div>
         </Slider>
       </div>
-      {/* Aquí puedes agregar más contenido debajo del slider */}
+      {}
     </div>
   );
 }

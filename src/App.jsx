@@ -18,7 +18,6 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 
 
 function App() {
-  //hacer protección de rutas
   return (
     <>
       <Notifications />

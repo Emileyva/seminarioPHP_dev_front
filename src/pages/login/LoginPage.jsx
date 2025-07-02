@@ -12,7 +12,7 @@ const LoginPage = () => {
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
-  // Validación simple: que no esté vacío cada campo
+  
   const validateForm = () => {
     const newErrors = [];
     if (!loginData.usuario.trim()) newErrors.push("El usuario es requerido.");
@@ -32,14 +32,14 @@ const LoginPage = () => {
     }
 
     const response = await loginService(loginData);
-    console.log("Respuesta procesada:", response); // Para depuración
+    console.log("Respuesta procesada:", response);
 
     if (response.error) {
       setErrors([response.error]);
       notifyError(response.error);
     } else {
       notifySuccess("Inicio de sesión exitoso.");
-      window.location.href = "/"; // Redirige al usuario a la página principal
+      window.location.href = "/";
     }
   };
 

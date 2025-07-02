@@ -6,7 +6,7 @@ export const getEstadisticas = async () => {
     console.log("Estadísticas obtenidas:", response.data);
     return response.data;
   } catch (error) {
-    // Log detallado
+    
     console.error("Error obteniendo estadísticas:", error);
     if (error.response) {
       console.error("Respuesta del servidor:", error.response.data);

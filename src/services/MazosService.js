@@ -1,8 +1,7 @@
 import api from "../axiosConfig";
 import { getAuthData } from "@/helper/getAuthData";
-//import kk from "@/assets/" Para ver como se hace
 
-// Servicio para obtener los mazos de un usuario
+
 export const getMazos = async () => {
   try {
     const authData = getAuthData();
@@ -25,7 +24,6 @@ export const getMazos = async () => {
   }
 };
 
-// Servicio para eliminar un mazo
 export const eliminarMazo = async (mazoId) => {
   try {
     const authData = getAuthData();
@@ -49,7 +47,6 @@ export const eliminarMazo = async (mazoId) => {
   }
 };
 
-// Servicio para editar un mazo
 export const editarMazo = async (mazoId, nuevoNombre) => {
   try {
     const authData = getAuthData();
@@ -79,7 +76,6 @@ export const editarMazo = async (mazoId, nuevoNombre) => {
   }
 };
 
-// Servicio para obtener las cartas de un mazo específico
 export const getCartasDeMazo = async (mazoId) => {
   try {
     const authData = getAuthData();
@@ -89,19 +85,18 @@ export const getCartasDeMazo = async (mazoId) => {
 
     const { token } = authData;
 
-    const response = await api.get(`/mazos/${mazoId}/cartas`, { // <-- Agrega const aquí
+    const response = await api.get(`/mazos/${mazoId}/cartas`, { 
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data; // Se espera que sea un array de cartas
+    return response.data;
   } catch (error) {
     console.error("Error en getCartasDeMazo:", error);
     return { error: error.response?.data?.error || "Error al obtener las cartas del mazo" };
   }
 };
 
-// Servicio para crear un nuevo mazo
 export const crearMazo = async (nombre, cartas) => {
   try {
     const authData = getAuthData();
@@ -126,7 +121,6 @@ export const crearMazo = async (nombre, cartas) => {
   }
 };
 
-// Servicio para listar cartas con filtros
 export const listarCartas = async (atributo = "", nombre = "") => {
   try {
     const authData = getAuthData();

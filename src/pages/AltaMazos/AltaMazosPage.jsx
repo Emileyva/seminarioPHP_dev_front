@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom"; // <-- Agrega esto
+import { useNavigate } from "react-router-dom";
 import { listarCartas, crearMazo } from "@/services/MazosService";
 import { notifySuccess, notifyError } from "@/components/Notificaciones";
 import "@/assets/styles/home.css";
-import "@/assets/styles/altaMazos.css"; // Asegúrate de tener este archivo CSS
+import "@/assets/styles/altaMazos.css";
 import dorsoCarta from "@/assets/images/Dorso carta.jpg";
 
 const MAX_CARTAS = 5;
@@ -86,11 +86,11 @@ const AltaMazosPage = () => {
             notifySuccess("¡Mazo creado exitosamente!");
             setNombre("");
             setCartasSeleccionadas([]);
-            navigate("/mis-mazos"); // <-- Redirige a Mis Mazos
+            navigate("/mis-mazos");
         }
     };
 
-    // Ordenar cartas según la opción seleccionada
+    
     const cartasOrdenadas = [...cartas].sort((a, b) => {
         switch (sortOption) {
             case "nombre-asc":
@@ -147,7 +147,7 @@ const AltaMazosPage = () => {
                         <select
                             value={sortOption}
                             onChange={(e) => setSortOption(e.target.value)}
-                            // Aplica la clase CSS
+                            
                         >
                             <option value="nombre-asc">Nombre (A-Z)</option>
                             <option value="nombre-desc">Nombre (Z-A)</option>
@@ -204,9 +204,9 @@ const AltaMazosPage = () => {
                         </div>
                     )}
                 </div>
-                {/* Elimina el botón submit aquí */}
+                {}
             </form>
-            {/* Botón flotante solo si NO está al final */}
+            {}
             {!atBottom && (
                 <button
                     onClick={handleSubmit}
@@ -215,7 +215,7 @@ const AltaMazosPage = () => {
                     Crear mazo
                 </button>
             )}
-            {/* Botón fijo dentro del formulario solo si está al final */}
+            {}
             {atBottom && (
                 <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "2rem" }}>
                     <button
