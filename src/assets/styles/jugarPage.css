@@ -72,16 +72,7 @@
   color: #388e3c;
 }
 
-.boton-jugar {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 1rem;
-}
+
 
 .boton-volver {
   margin-top: 16px;

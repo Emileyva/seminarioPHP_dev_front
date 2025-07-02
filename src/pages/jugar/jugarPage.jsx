@@ -175,11 +175,7 @@ if (!partida) {
           </div>
         )}
 
-        {!resultadoFinal && (
-          <>
-            <button className="boton-jugar">Jugar</button>
-          </>
-        )}
+       
       </div>
 
       {/* Cartas del usuario */}
