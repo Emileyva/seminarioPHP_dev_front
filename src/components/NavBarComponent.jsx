@@ -9,7 +9,7 @@ function NavBarComponent() {
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      setUser(JSON.parse(storedUser)); // Parsear la data del localStorage
+      setUser(JSON.parse(storedUser));
     }
   }, []);
 
@@ -17,7 +17,7 @@ function NavBarComponent() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
-    // Redirigir al login
+    
     window.location.href = "/login";
   };
 
